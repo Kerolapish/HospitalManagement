@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +21,23 @@ Route::get('/', function () {
     return view('/Auth/login');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+
+Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('Profile Page');
+Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
+
+Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('AdminPanel');
+        $data = User::all();
+        return view('AdminPanel' , compact('data'));
     })->name('AdminPanel');
 });
