@@ -67,7 +67,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="/register" class="nav-link">
+                <a href="/registerBook" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Register Book
@@ -94,7 +94,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-              <li class="breadcrumb-item"><a href="\register">Register</a></li>
+              <li class="breadcrumb-item"><a href="\registerBook">Register</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

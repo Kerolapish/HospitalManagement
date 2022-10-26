@@ -31,6 +31,6 @@ class HomeController extends Controller
 
     public function registerBook(){
         $data = User::all();
-        return view('Page.register' , compact('data'));
+        return view('page.register' , compact('data'));
     }
 }

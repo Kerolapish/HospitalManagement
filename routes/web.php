@@ -18,7 +18,7 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    return view('/Auth/login');
+        return view('/Auth/login');
 });
 
 Route::get('/welcome', function () {
@@ -30,7 +30,7 @@ Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('P
 Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
 
 Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
-Route::get('/register' , [HomeController::class , 'registerBook'])-> name('Register book');
+Route::get('/registerBook' , [HomeController::class , 'registerBook'])-> name('registerbook');
 
 Route::middleware([
     'auth:sanctum',

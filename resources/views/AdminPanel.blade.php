@@ -67,7 +67,7 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="/register" class="nav-link">
+              <a href="/registerBook" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Register Book

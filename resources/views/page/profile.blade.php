@@ -53,10 +53,20 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          
+        <div class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="/registerBook" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Register Book
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
