@@ -63,19 +63,19 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <div class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="/register" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Register Book
-                </p>
-              </a>
-            </li>
-          </ul>
-        </div>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+              <li class="nav-item">
+                <a href="/register" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    Register Book
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -89,11 +89,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Admin Panel</h1>
+            <h1 class="m-0">Register</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
+              <li class="breadcrumb-item"><a href="\register">Register</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -105,48 +106,7 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card">
-            <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">User data</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                      <th>Username</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.0
-                      </td>
-                      <td>Win 95+</td>
-                      
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.5
-                      </td>
-                      <td>Win 95+</td>   
-                    </tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
+            
         </div>
         <!-- /.row -->
       </div>

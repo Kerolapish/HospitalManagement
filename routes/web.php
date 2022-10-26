@@ -30,6 +30,7 @@ Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('P
 Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
 
 Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
+Route::get('/register' , [HomeController::class , 'registerBook'])-> name('Register book');
 
 Route::middleware([
     'auth:sanctum',

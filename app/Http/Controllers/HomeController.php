@@ -28,4 +28,9 @@ class HomeController extends Controller
         Auth::logout();
         return view ('auth.login');
     }
+
+    public function registerBook(){
+        $data = User::all();
+        return view('Page.register' , compact('data'));
+    }
 }
