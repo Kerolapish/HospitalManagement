@@ -46,4 +46,9 @@ class HomeController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function registerMember(){
+        $data = User::all();
+        return view('page.registerMember' , compact('data'));
+    }
 }

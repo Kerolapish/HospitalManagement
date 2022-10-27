@@ -29,8 +29,10 @@ Route::get('/welcome', function () {
 Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('Profile Page');
 Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
 
-Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
-Route::get('/registerBook' , [HomeController::class , 'registerBook'])-> name('registerbook');
+Route::post('/change-password', [ChangePasswordController::class, 'store']) -> name('change-password');
+Route::get('/registerBook' , [HomeController::class , 'registerBook']) -> name('registerbook');
+
+Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> name("registerMember");
 
 Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
 
