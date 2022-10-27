@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Models\User;
-
+use App\Models\Library;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,8 @@ Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name(
 Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
 Route::get('/registerBook' , [HomeController::class , 'registerBook'])-> name('registerbook');
 
+Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -39,6 +41,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         $data = User::all();
-        return view('AdminPanel' , compact('data'));
+        $book = Library::all();
+        return view('AdminPanel' , compact('data' , 'book'));
     })->name('AdminPanel');
 });
