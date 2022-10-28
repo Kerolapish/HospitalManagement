@@ -35,6 +35,7 @@ Route::get('/registerBook' , [HomeController::class , 'registerBook']) -> name('
 Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> name("registerMember");
 
 Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
+Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
 
 Route::middleware([
     'auth:sanctum',

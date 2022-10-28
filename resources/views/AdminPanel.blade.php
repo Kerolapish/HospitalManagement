@@ -105,7 +105,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="card">
-                        <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Book data</h3>
                             </div>
@@ -138,7 +137,7 @@
                                                     </form>
 
                                                     <a class="btn btn-primary btn-xs"
-                                                        href="https://spmtd.mindwave.my/pasukan/fe9008ff-4df8-11ed-9df3-f875a426dd6f/edit%22%3E">Update</a>
+                                                        href="{{ url('update_page', $Library->id) }}">Update</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -146,7 +145,6 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                        </div>
                     </div>
                     <!-- /.row -->
                 </div>
