@@ -37,15 +37,17 @@ Route::get('/registerBook' , [HomeController::class , 'registerBook']) -> name('
 Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> name("registerMember");
 Route::get('/totalMember' , [HomeController::class , "totalMember"]) -> name("totalMember");
 Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
+Route::get('/totalBook' , [HomeController::class , "totalBook"]) -> name("totalBook");
 
 Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("registerissues");
 
-Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
+Route::post('/delete/{id}' , [HomeController::class , 'delete']);
+Route::post('/deleteMembers/{id}' , [HomeController::class , 'deleteMembers']);
+Route::post('/deleteIssues/{id}' , [HomeController::class , 'deleteIssues']);
 // Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
 
 Route::post('/upload/{id}',[HomeController::class,'upload']);
 
-Route::post('/delete/{id}',[HomeController::class,'destroy']);
 
 Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
 Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);

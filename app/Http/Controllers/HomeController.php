@@ -45,12 +45,33 @@ class HomeController extends Controller
     }
 
     //function for delete information
-    public function destroy($id)
+    public function delete($id)
     {
         $book=Library::find($id);
+
         $book->delete();
 
         return redirect('/dashboard');
+    }
+
+    //function for delete members
+    public function deleteMembers($id)
+    {
+        $member=totalMembers::find($id);
+
+        $member->delete();
+
+        return redirect('/totalMember');
+    }
+
+    //function for delete Issues
+    public function deleteIssues($id)
+    {
+        $issued=BookIssue::find($id);
+
+        $issued->delete();
+
+        return redirect('/Issue');
     }
 
     //function to go to Update Page
@@ -129,5 +150,10 @@ class HomeController extends Controller
         return view('page.issues' , compact('data'));
     }
 
-
+    //go to total book page
+    public function totalBook(){
+        $data = user::all();
+        $book = Library::all();
+        return view('page.totalBook' , compact('data' , 'book'));
+    }
 }

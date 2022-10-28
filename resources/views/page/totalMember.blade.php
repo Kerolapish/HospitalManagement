@@ -76,7 +76,7 @@
                                                 <td>{{ $totalMembers->period}}</td>
 
                                                 <td>
-                                                    <form action="{{ url('delete', $totalMembers->id) }}" method="POST"
+                                                    <form action="{{ url('deleteMembers', $totalMembers->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @csrf
                                                         <input class="btn btn-danger btn-xs" type="submit"
