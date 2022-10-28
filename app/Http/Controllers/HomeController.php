@@ -54,15 +54,15 @@ class HomeController extends Controller
     }
 
     //function to go to Update Page
-    public function update_view($id)
+    public function updateBookView($id)
     {
         $data = User::all();
         $book = Library::find($id);
-        return view('update_page', compact('data' , 'book'));
+        return view('Page.UpdateBook', compact('data' , 'book'));
     }
 
     //update book registration 
-    public function update(Request $request,$id)
+    public function updateBook(Request $request,$id)
     {
         
         $data = User::all();
@@ -73,7 +73,7 @@ class HomeController extends Controller
         $library->price= $request->price;
         $library->save();
         $book= Library::all();
-
+        
         return view('AdminPanel', compact('data' , 'book'));
     }
 
@@ -81,15 +81,12 @@ class HomeController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-
-
             'name'=>'required',
             'author'=>'required',
             'year'=>'required|max:4',
             'price'=>'required'
 
         ],
-
         [
             'name.required'=>'Fill the Book Name',
             'author.required'=>'Fill the Author',

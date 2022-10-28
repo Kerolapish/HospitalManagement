@@ -47,8 +47,8 @@ Route::post('/upload/{id}',[HomeController::class,'upload']);
 
 Route::post('/delete/{id}',[HomeController::class,'destroy']);
 
-Route::get('/update_view/{id}',[HomeController::class,'update_view']);
-Route::post('/update/{id}',[HomeController::class,'update']);
+Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
+Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
 
 Route::middleware([
     'auth:sanctum',

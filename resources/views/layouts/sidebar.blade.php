@@ -25,15 +25,30 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="/registerBook" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Register Book
-                </p>
-              </a>
+                  <a class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Book
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="/registerBook" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Register Book</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link"> 
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Book List</p>
+                      </a>
+                    </li>
+                  </ul>
             </li>
             <li class="nav-item">
-              <a href="/issues" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Membership
@@ -48,7 +63,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link"> 
+                  <a href="/totalMember" class="nav-link"> 
                     <i class="far fa-circle nav-icon"></i>
                     <p>Membership List</p>
                   </a>
@@ -56,7 +71,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Book Issues
@@ -65,66 +80,20 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="/issues" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Register Issues</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link"> 
+                  <a href="/Issue" class="nav-link"> 
                     <i class="far fa-circle nav-icon"></i>
                     <p>Issued List</p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="/totalMember" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Total Members
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/Issue" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Issue
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Register Issues</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link"> 
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Issued List</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="/totalMember" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Total Members
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/Issue" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Issue
-                </p>
-              </a>
-            </li>
-          </ul>
+            
         </div>
       </nav>
       <!-- /.sidebar-menu -->

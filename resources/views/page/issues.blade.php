@@ -64,13 +64,15 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" name="memberName" placeholder="Enter member name">
+                                            <input type="text" class="form-control" name="memberName"
+                                                placeholder="Enter member name">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="Email">Book Name</label>
-                                            <input type="text" class="form-control" name="memberPhone" placeholder="Enter book name" >
+                                            <input type="text" class="form-control" name="memberPhone"
+                                                placeholder="Enter book name">
                                         </div>
                                     </div>
                                 </div>
@@ -87,32 +89,34 @@
                                             <input type="date" class="form-control" name="birthDate">
                                         </div>
                                     </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-dark float-right">REGISTER</button>
-                        </div> 
-                        <!-- /.card-body -->
+                        </div>
                     </div>
-                    <!-- /.row -->
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
             </div>
-            <!-- /.content -->
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.content-wrapper -->
+        
+        <!-- /.content -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        @include('layouts.footer')
-    </div>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    @include('layouts.footer')
+</div>
+
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->

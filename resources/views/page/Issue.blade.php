@@ -18,13 +18,13 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  @include('layouts.topnav')
-  <!-- /.navbar -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        @include('layouts.topnav')
+        <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  @include('layouts.sidebar')
+        <!-- Main Sidebar Container -->
+        @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -50,46 +50,45 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Issued Book</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
+                        <div class="card-header">
+                            <h3 class="card-title">Issued Book</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Book Name</th>
+                                        <th>Date Issued</th>
+                                        <th>Date Return</th>
+                                        <th colspan="2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($issued as $bookIssued)
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Book Name</th>
-                                            <th>Date Issued</th>
-                                            <th>Date Return</th>
-                                            <th colspan="2">Action</th>
+                                            <td>{{ $bookIssued->name }}</td>
+                                            <td>{{ $bookIssued->bookName }}</td>
+                                            <td>{{ $bookIssued->dateIssued }}</td>
+                                            <td>{{ $bookIssued->dateReturn }}</td>
+
+                                            <td>
+                                                <form action="{{ url('delete', $bookIssued->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input class="btn btn-danger btn-xs" type="submit" value="Delete">
+                                                </form>
+
+                                                <a class="btn btn-primary btn-xs"
+                                                    href="{{ url('update_page', $bookIssued->id) }}">Update</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($issued as $bookIssued)
-                                            <tr>
-                                                <td>{{ $bookIssued->name }}</td>
-                                                <td>{{ $bookIssued->bookName }}</td>
-                                                <td>{{ $bookIssued->dateIssued }}</td>
-                                                <td>{{ $bookIssued->dateReturn }}</td>
-
-                                                <td>
-                                                    <form action="{{ url('delete', $bookIssued->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-danger btn-xs" type="submit"
-                                                            value="Delete">
-                                                    </form>
-
-                                                    <a class="btn btn-primary btn-xs"
-                                                        href="{{ url('update_page', $bookIssued->id) }}">Update</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                                    @endforeach
+                                    </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                     <!-- /.row -->
                 </div>
@@ -105,10 +104,10 @@
         </aside>
         <!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
-  @include('layouts.footer')
-</div>
-<!-- ./wrapper -->
+        <!-- Main Footer -->
+        @include('layouts.footer')
+    </div>
+    <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
 

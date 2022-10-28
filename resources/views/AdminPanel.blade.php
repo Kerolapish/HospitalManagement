@@ -137,7 +137,7 @@
                                                     </form>
 
                                                     <a class="btn btn-primary btn-xs"
-                                                        href="{{ url('update_view', $Library->id) }}">Update</a>
+                                                        href="{{ url('updateBookView', $Library->id) }}">Update</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -151,7 +151,6 @@
                 <!-- /.container-fluid -->
             </div>
             <!-- /.content -->
-        </div>
         <!-- /.content-wrapper -->
 
         <!-- Control Sidebar -->
