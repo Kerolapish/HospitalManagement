@@ -47,3 +47,8 @@ Route::middleware([
         return view('AdminPanel' , compact('data' , 'book'));
     })->name('AdminPanel');
 });
+
+Route::post('/upload/{id}',[HomeController::class,'upload']);
+
+Route::post('/delete/{id}',[HomeController::class,'destroy']);
+
