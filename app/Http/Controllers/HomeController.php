@@ -77,7 +77,7 @@ class HomeController extends Controller
         return view('AdminPanel', compact('data' , 'book'));
     }
 
-    //book register validation
+    //upload book registration
     public function upload(Request $request)
     {
         $request->validate([

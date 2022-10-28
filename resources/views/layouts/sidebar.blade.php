@@ -36,17 +36,77 @@
               <a href="/issues" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
-                  Register Issuer
+                  Membership
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/registerMember" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Register Membership</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> 
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Membership List</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Book Issues
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Register Issues</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> 
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Issued List</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="/totalMember" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Total Members
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/registerMember" class="nav-link">
+              <a href="/Issue" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
-                  Register Member
+                  Issue
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Register Issues</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> 
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Issued List</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="/totalMember" class="nav-link">
