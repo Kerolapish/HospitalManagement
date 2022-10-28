@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->string('book')->nullable();
             $table->string('name')->nullable();
             $table->string('author')->nullable();
             $table->string('year')->nullable();

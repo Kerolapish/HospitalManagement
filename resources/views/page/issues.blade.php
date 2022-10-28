@@ -37,8 +37,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Membership</a></li>
-                                <li class="breadcrumb-item"><a href="\dashboard">Register</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/issues">Register Issues</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -80,7 +80,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="birthDate">Date Issued</label>
-                                            <input type="date" class="form-control" name="birthDate">
+                                            <input type="date" value ="today();" id="datepicker" class="form-control" name="birthDate">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -127,7 +127,6 @@
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="dist/js/adminlte.js"></script>
-
     <!-- OPTIONAL SCRIPTS -->
     <script src="plugins/chart.js/Chart.min.js"></script>
     <!-- AdminLTE for demo purposes -->

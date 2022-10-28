@@ -57,13 +57,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        $data = User::all();
-        $book = Library::all();
-        $member = totalMembers::all();
-        $issued = BookIssue::all();
-        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issued'));
-    })->name('AdminPanel');
+    Route::get('/dashboard', [HomeController::class , 'redirectInit'])->name('AdminPanel');
 });
 
 

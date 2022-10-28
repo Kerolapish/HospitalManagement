@@ -26,144 +26,145 @@
   <!-- Main Sidebar Container -->
   @include('layouts.sidebar')
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Admin Panel</h1>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Admin Panel</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>2e+6i</h3>
 
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>150</h3>
-
-                                <p>Total Members</p>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
+                        <p>Total Members</p>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>53<sup style="font-size: 20px"></sup></h3>
-
-                                <p>Total Books</p>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>44</h3>
-
-                                <p>Issues</p>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Not Return</p>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
+                    <a href="#" class="small-box-footer">More info <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- /.content-header -->
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{$bookCount}}<sup style="font-size: 20px"></sup></h3>
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Book data</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Book Name</th>
-                                            <th>Author</th>
-                                            <th>Year</th>
-                                            <th>Price</th>
-                                            <th colspan="2">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($book as $Library)  
-                                            <tr>
-                                                <td>{{ $Library->name }}</td>
-                                                <td>{{ $Library->author }}</td>
-                                                <td>{{ $Library->year }}</td>
-                                                <td>{{ $Library->price }}</td>
-
-                                                <td>
-                                                    <form action="{{ url('delete', $Library->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-danger btn-xs" type="submit"
-                                                            value="Delete">
-                                                    </form>
-
-                                                    <a class="btn btn-primary btn-xs"
-                                                        href="{{ url('updateBookView', $Library->id) }}">Update</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                        <p>Total Books</p>
                     </div>
-                    <!-- /.row -->
+                    <a href="#" class="small-box-footer">More info <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
-        <!-- /.content-wrapper -->
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>44</h3>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+                        <p>Issues</p>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>65</h3>
+
+                        <p>Not Return</p>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Book data</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Book Name</th>
+                                    <th>Author</th>
+                                    <th>Year</th>
+                                    <th>Price</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($book as $Library)  
+                                    <tr>
+                                        <td>{{ $Library->name }}</td>
+                                        <td>{{ $Library->author }}</td>
+                                        <td>{{ $Library->year }}</td>
+                                        <td>{{ $Library->price }}</td>
+
+                                        <td>
+                                            <form action="{{ url('delete', $Library->id) }}" method="POST"
+                                                accept-charset="UTF-8" style="display:inline">
+                                                @csrf
+                                                <input class="btn btn-danger btn-xs" type="submit"
+                                                    value="Delete">
+                                            </form>
+
+                                            <a class="btn btn-primary btn-xs"
+                                                href="{{ url('updateBookView', $Library->id) }}">Update</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+        
 
   <!-- Main Footer -->
-  @include('layouts.footer')
+    
 </div>
 <!-- ./wrapper -->
-
+@include('layouts.footer')
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->

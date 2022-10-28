@@ -37,8 +37,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Membership</a></li>
-                                <li class="breadcrumb-item"><a href="\dashboard">Register</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="\registerMember">Register Member</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

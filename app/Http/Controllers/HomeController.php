@@ -156,4 +156,12 @@ class HomeController extends Controller
         $book = Library::all();
         return view('page.totalBook' , compact('data' , 'book'));
     }
+    public function redirectInit(){
+        $data = User::all();
+        $book = Library::all();
+        $bookCount = Library::count();
+        $member = totalMembers::all();
+        $issued = bookIssue::all();
+        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issued', 'bookCount'));
+    }
 }
