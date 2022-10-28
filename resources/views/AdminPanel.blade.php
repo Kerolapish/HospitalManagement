@@ -121,7 +121,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($book as $Library)
+                                        @foreach ($book as $Library)  
                                             <tr>
                                                 <td>{{ $Library->name }}</td>
                                                 <td>{{ $Library->author }}</td>
@@ -137,7 +137,7 @@
                                                     </form>
 
                                                     <a class="btn btn-primary btn-xs"
-                                                        href="{{ url('update_page', $Library->id) }}">Update</a>
+                                                        href="{{ url('update_view', $Library->id) }}">Update</a>
                                                 </td>
                                             </tr>
                                         @endforeach

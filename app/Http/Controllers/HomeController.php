@@ -56,9 +56,25 @@ class HomeController extends Controller
     //function to go to Update Page
     public function update_view($id)
     {
+        $data = User::all();
         $book = Library::find($id);
+        return view('update_page', compact('data' , 'book'));
+    }
 
-        return view('update_page',compact('book'));
+    //update book registration 
+    public function update(Request $request,$id)
+    {
+        
+        $data = User::all();
+        $library = Library::find($id);
+        $library->name= $request->name;
+        $library->author= $request->author;
+        $library->year= $request->year;
+        $library->price= $request->price;
+        $library->save();
+        $book= Library::all();
+
+        return view('AdminPanel', compact('data' , 'book'));
     }
 
     //book register validation
@@ -80,7 +96,6 @@ class HomeController extends Controller
             'year.required'=>'Fill the Publishing Year',
             'price.required'=>'Fill the Book Price Number'
         ]
-
     );
         $library = new library();
         $data = user::all();
@@ -111,5 +126,11 @@ class HomeController extends Controller
         $data = User::all(); 
         return view('page.Issue' , compact('issued'  , 'data'));
     }
+
+    public function registerissues(){
+        $data = User::all();
+        return view('page.issues' , compact('data'));
+    }
+
 
 }

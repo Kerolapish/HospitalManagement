@@ -38,8 +38,17 @@ Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> na
 Route::get('/totalMember' , [HomeController::class , "totalMember"]) -> name("totalMember");
 Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
 
+Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("registerissues");
+
 Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
-Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
+// Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
+
+Route::post('/upload/{id}',[HomeController::class,'upload']);
+
+Route::post('/delete/{id}',[HomeController::class,'destroy']);
+
+Route::get('/update_view/{id}',[HomeController::class,'update_view']);
+Route::post('/update/{id}',[HomeController::class,'update']);
 
 Route::middleware([
     'auth:sanctum',
@@ -50,12 +59,9 @@ Route::middleware([
         $data = User::all();
         $book = Library::all();
         $member = totalMembers::all();
-        $issued = bookIssued::all();
+        $issued = bookIssue::all();
         return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issued'));
     })->name('AdminPanel');
 });
 
-Route::post('/upload/{id}',[HomeController::class,'upload']);
-
-Route::post('/delete/{id}',[HomeController::class,'destroy']);
 

@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/registerBook" class="nav-link">
+              <a href="/issues" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Register Issuer
