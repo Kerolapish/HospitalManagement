@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Library;
+use App\Models\totalMembers;
+use App\Models\bookIssue;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +61,7 @@ class HomeController extends Controller
         return view('update_page',compact('book'));
     }
 
+    //book register validation
     public function upload(Request $request)
     {
         $request->validate([
@@ -89,9 +92,24 @@ class HomeController extends Controller
         return view('Page.register' , compact('data')) -> with('success');
     }
 
+    //go to register member page
     public function registerMember(){
         $data = User::all();
         return view('page.registerMember' , compact('data'));
+    }
+
+    //go to totalMember Page
+    public function totalMember(){
+        $member = totalMembers::all();
+        $data = User::all(); 
+        return view('page.totalMember' , compact('member'  , 'data'));
+    }
+
+    //go to Issued Book page
+    public function Issue(){
+        $issued = bookIssue::all();
+        $data = User::all(); 
+        return view('page.Issue' , compact('issued'  , 'data'));
     }
 
 }

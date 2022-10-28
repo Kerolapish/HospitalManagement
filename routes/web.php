@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Models\User;
 use App\Models\Library;
+use App\Models\totalMembers;
+use App\Models\bookIssue;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,8 @@ Route::post('/change-password', [ChangePasswordController::class, 'store']) -> n
 Route::get('/registerBook' , [HomeController::class , 'registerBook']) -> name('registerbook');
 
 Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> name("registerMember");
+Route::get('/totalMember' , [HomeController::class , "totalMember"]) -> name("totalMember");
+Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
 
 Route::post('/delete/{id}' , [HomeController::class , 'destroy']);
 Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
@@ -45,7 +49,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         $data = User::all();
         $book = Library::all();
-        return view('AdminPanel' , compact('data' , 'book'));
+        $member = totalMembers::all();
+        $issued = bookIssued::all();
+        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issued'));
     })->name('AdminPanel');
 });
 

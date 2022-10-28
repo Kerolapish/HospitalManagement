@@ -13,7 +13,7 @@
           <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{ url ('profile' , $data -> first())}}" class="d-block">{{Auth::user() -> name }}</a>
+          <a href="{{ url ('profile' ,  $data ->first())}}" class="d-block">{{Auth::user() -> name }}</a>
         </div>
         
       </div>
@@ -45,6 +45,22 @@
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Register Member
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/totalMember" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Total Members
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/Issue" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Issue
                 </p>
               </a>
             </li>
