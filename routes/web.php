@@ -59,7 +59,7 @@ Route::middleware([
         $data = User::all();
         $book = Library::all();
         $member = totalMembers::all();
-        $issued = bookIssue::all();
+        $issued = BookIssue::all();
         return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issued'));
     })->name('AdminPanel');
 });

@@ -119,7 +119,7 @@ class HomeController extends Controller
 
     //go to Issued Book page
     public function Issue(){
-        $issued = bookIssue::all();
+        $issued = BookIssue::all();
         $data = User::all(); 
         return view('page.Issue' , compact('issued'  , 'data'));
     }
