@@ -33,7 +33,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Register Issue</h1>
+                            <h1 class="m-0">Update Book</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -49,57 +49,63 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Update Book Page</h3>
+                            <h3 class="card-title">Book Update Form</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-
-                        <head>
-                            <meta charset="utf-8">
-                            <title></title>
-                        </head>
-
-                        <body>
-
-                            <div align="center">
-                                <form action="{{ url('updateBook', $book->id) }}" method="POST"
+                        <form action="{{ url('updateBook', $book->id) }}" method="POST"
                                     enctype="multipart/form-part">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">BOOK NAME</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    placeholder="enter book name" value="{{ $book->name }}">
+                                            </div>
+                                        </div>
 
-                                    @csrf
-                                    <div style="padding : 10px">
-                                        <label>Book Name</label>
-                                        <input type="text" name="name" value="{{ $book->name }}">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">AUTHOR</label>
+                                                <input type="text" class="form-control" name="author"
+                                                    placeholder="enter book author" value="{{ $book->author }}">
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div style="padding : 10px">
-                                        <label>Author</label>
-                                        <input type="text" name="author" value="{{ $book->author }}">
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">PUBLISHING YEAR</label>
+                                                <input type="text" class="form-control" name="year"
+                                                    placeholder="enter book year" value="{{ $book->year }}">
+                                            </div>
+                                        </div>
 
-                                    <div style="padding : 10px">
-                                        <label>Publishing Year</label>
-                                        <input type="text" name="year" value="{{ $book->year }}">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">PRICE</label>
+                                                <input type="text" class="form-control" name="price"
+                                                    placeholder="enter price" value="{{ $book->price }}">
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div style="padding : 10px">
-                                        <label>Book Price</label>
-                                        <input type="text" name="price" value="{{ $book->price }}">
-                                    </div>
-
-                                    <div style="padding : 10px">
-                                        <input type="submit" value="Update">
-
-                                    </div>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
-                            </form>
-
-                        </body>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-secondary float-right">Update</button>
+                            </div>
+                        </form>
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 

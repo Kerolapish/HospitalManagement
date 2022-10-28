@@ -80,9 +80,6 @@
                                                     @csrf
                                                     <input class="btn btn-danger btn-xs" type="submit" value="Delete">
                                                 </form>
-
-                                                <a class="btn btn-primary btn-xs"
-                                                    href="{{ url('update_page', $bookIssued->id) }}">Update</a>
                                             </td>
                                         </tr>
                                     @endforeach

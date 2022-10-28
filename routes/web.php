@@ -52,6 +52,7 @@ Route::post('/upload/{id}',[HomeController::class,'upload']);
 Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
 Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
