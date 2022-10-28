@@ -68,7 +68,7 @@
                   </span><br>
                   <div class="form-group">
                     <label for="exampleInputPassword1">BOOK NAME</label>
-                    <input type="text" class="form-control"  name="name" placeholder="name">
+                    <input type="text" class="form-control"  name="name" placeholder="enter book name">
                   </div>
                   <span style="color:red">
                     @error('author')
@@ -79,7 +79,7 @@
                   </span><br>
                   <div class="form-group">
                     <label for="exampleInputEmail1">AUTHOR</label>
-                    <input type="text" class="form-control"  name="author" placeholder="author">
+                    <input type="text" class="form-control"  name="author" placeholder="enter book author">
                   </div>
                   <span style="color:red">
                     @error('year')
@@ -90,7 +90,7 @@
                   </span><br>
                   <div class="form-group">
                     <label for="exampleInputEmail1">PUBLISHING YEAR</label>
-                    <input type="text" class="form-control" name="year" placeholder="year">
+                    <input type="text" class="form-control" name="year" placeholder="enter book year">
                   </div>
                   <span style="color:red">
                     @error('price')
@@ -101,7 +101,7 @@
                   </span><br>
                   <div class="form-group">
                     <label for="exampleInputEmail1">PRICE</label>
-                    <input type="text" class="form-control" name="price" placeholder="price">
+                    <input type="text" class="form-control" name="price" placeholder="enter price">
                   </div>
 
                 </div>

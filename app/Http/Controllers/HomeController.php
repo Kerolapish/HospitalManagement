@@ -89,4 +89,9 @@ class HomeController extends Controller
         return view('Page.register' , compact('data')) -> with('success');
     }
 
+    public function registerMember(){
+        $data = User::all();
+        return view('page.registerMember' , compact('data'));
+    }
+
 }
