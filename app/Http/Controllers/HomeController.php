@@ -199,20 +199,19 @@ class HomeController extends Controller
         $issue = new bookIssue();
         // $memberIssued = totalMembers::find($request -> issuedName); //TODO - line 17
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
-        // $issue -> name = $request -> issuedName;
-        // $issue -> bookName = $request -> issuedBook;
-        // $issue -> dateIssued = $request -> issuedDate;
-        // $issue -> dateReturn = $request -> returnDate;
-        $bookIssued -> Availability = "issued"; 
+        $issue -> name = $request -> issuedName;
+        $issue -> bookName = $request -> issuedBook;
+        $issue -> dateIssued = $request -> issuedDate;
+        $issue -> dateReturn = $request -> returnDate;
+        $bookIssued -> Availability = "Issued"; 
 
         // totalmembers column pending = Issued;
 
-        // $bookIssued -> save();
-        // $issue -> save();
-
-        // $data = User::all();
-        // $member = totalMembers::all();
-        // $book = Library::all();
+        $bookIssued -> save();
+        $issue -> save();
+        $data = User::all();
+        $member = totalMembers::all();
+        $book = Library::all();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
     }
 }
