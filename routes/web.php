@@ -43,12 +43,13 @@ Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("regi
 
 Route::post('/delete/{id}' , [HomeController::class , 'delete']);
 Route::post('/deleteMembers/{id}' , [HomeController::class , 'deleteMembers']);
-Route::post('/deleteIssues/{id}' , [HomeController::class , 'deleteIssues']);
-// Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
+Route::post('/declareLost/{id}' , [HomeController::class , 'declareLost']);
+Route::post('/issueReturned/{id}' , [HomeController::class , 'issueReturned']) -> name('issueReturned');
+Route::post('/revokeMember/{id}' , [HomeController::class , 'revokeMember']) -> name('revokeMember');
 
 Route::post('/upload',[HomeController::class,'upload']);
-
-
+Route::get('/LostBook' , [HomeController::class , 'LostBook']) -> name('LostBook');
+Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');
 Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
 Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
 Route::post('/registerNewMember' , [HomeController::class , 'registerNewMember']) -> name('registerNewMember');

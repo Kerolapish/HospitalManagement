@@ -32,7 +32,9 @@ class HomeController extends Controller
         $memberCount = totalMembers::count();
         $member = totalMembers::all();
         $issuedCount = bookIssue::count();
-        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount"));
+        $lostBook = Library::where('Availability' , 'Lost') -> get();
+        $lostBook = $lostBook -> count();
+        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
     }
 
     //////////////////////////////////
@@ -166,16 +168,32 @@ class HomeController extends Controller
         return view('page.totalMember' , compact('member'  , 'data'));
     }
 
+    //function to revoke member blacklist
+    public function revokeMember($id){
+        $revoke = totalMembers::find($id);
+        $revoke -> havePending = "clear";
+        $revoke -> save();
+        $data = User::all();
+        $member = totalMembers::all();
+        return view('page.totalMember' , compact('data' , 'member'));
+    }
+
     //////////////////////////////////
 
     // ISSUES FUNCTION
-    //function for delete Issues
-    public function deleteIssues($id){
-        $issued=BookIssue::find($id);
+    //function for declare lost book
+    public function declareLost($id){
+        $issued = BookIssue::find($id);
+        $bookLost = Library::where('name' , $issued -> bookName ) -> first();
+        $memberLost = totalMembers::where('name' , $issued -> name) -> first();
 
+        $bookLost -> Availability = "Lost";
+        $memberLost -> havePending = "Blacklisted";
+
+        $memberLost -> save();
+        $bookLost -> save();
         $issued->delete();
-
-        return redirect('/Issue');
+        return redirect('/LostBook');
     }
 
     //go to Issued Book page
@@ -187,8 +205,8 @@ class HomeController extends Controller
 
     //go to register issues page
     public function registerissues(){
-        $member = totalMembers::all();
-        $book = Library::all();
+        $member = totalMembers::where('havePending' , 'clear') -> get();
+        $book = Library::where('Availability' , 'Available') -> get();
         $data = User::all();
         return view('page.RegisterIssues' , compact('data', 'member' , 'book'));
     }
@@ -197,21 +215,59 @@ class HomeController extends Controller
     public function registerNewIssue(Request $request){
 
         $issue = new bookIssue();
-        // $memberIssued = totalMembers::find($request -> issuedName); //TODO - line 17
+        $memberIssued = totalMembers::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
+
         $issue -> name = $request -> issuedName;
         $issue -> bookName = $request -> issuedBook;
         $issue -> dateIssued = $request -> issuedDate;
         $issue -> dateReturn = $request -> returnDate;
+        $memberIssued -> havePending = "Pending";
         $bookIssued -> Availability = "Issued"; 
-
-        // totalmembers column pending = Issued;
-
+        
         $bookIssued -> save();
+        $memberIssued -> save();
         $issue -> save();
         $data = User::all();
         $member = totalMembers::all();
         $book = Library::all();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
+    }
+
+    //function to return the book issued
+    public function issueReturned($id){
+
+        $bookIssued = bookIssue::find($id);
+       
+        $IssuedName = totalMembers::where('name' , $bookIssued -> name) -> first();
+        $IssuedBook = library::where('name' , $bookIssued -> bookName) -> first();
+        
+        $IssuedName -> havePending = "clear";
+        $IssuedBook -> Availability = "Available";
+
+        $IssuedName -> save();
+        $IssuedBook -> save();
+        $bookIssued -> delete();
+        $issued = BookIssue::all();
+        $data = User::all();
+        return view('page.ListIssue' , compact('issued'  , 'data'));
+    }
+
+    //function to go to lost book page
+    public function LostBook(){
+
+        $data = user::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('Page.LostBook' , compact('data' , 'lost'));
+    }
+
+    //function to recover lost book
+    public function recoverBook($id){
+        $recovered = Library::find($id);
+        $recovered -> Availability = "Available";
+        $recovered -> save();
+        $data = User::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('page.LostBook' , compact('data' , 'lost'));
     }
 }

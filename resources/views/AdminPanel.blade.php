@@ -78,7 +78,7 @@
 
                         <p>Issues</p>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
+                    <a href="/Issue" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -87,11 +87,11 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>{{$lostBook}}</h3>
 
-                        <p>Not Return</p>
+                        <p>Lost Book</p>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
+                    <a href="\LostBook" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -125,10 +125,15 @@
                                         <td>{{ $Library->name }}</td>
                                         <td>{{ $Library->author }}</td>
                                         <td>{{ $Library->year }}</td>
-                                        <td>{{ $Library->price }}</td>
+                                        <td>RM {{ $Library->price }}</td>
                                         <td>{{ $Library -> Availability}}</td>
                                     </tr>
                                 @endforeach
+                                @if ($book -> count() == 0)
+                                        <tr>
+                                            <td colspan="7" style="text-align: center">No record in database</td>
+                                        </tr>
+                                @endif
                                 </tfoot>
                         </table>
                     </div>

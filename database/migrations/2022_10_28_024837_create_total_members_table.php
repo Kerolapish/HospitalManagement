@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('birth');
             $table->string('PhoneNum'); 
             $table->string('period');
+            $table -> string('havePending') -> default('clear');
             $table->timestamps();
         });
     }

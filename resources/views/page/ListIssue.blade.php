@@ -75,14 +75,28 @@
                                             <td>{{ $bookIssued->dateReturn }}</td>
 
                                             <td>
-                                                <form action="{{ url('deleteIssues', $bookIssued->id) }}" method="POST"
+                                                <form action="{{ url('issueReturned', $bookIssued->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
-                                                    <input class="btn btn-danger btn-xs" type="submit" value="Delete">
+                                                    <input class="btn btn-info btn-xs" type="submit" value="Returned ">
+                                                </form>
+
+                                                <form action="{{ url('declareLost', $bookIssued->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input class="btn btn-danger btn-xs" type="submit" value="Declare Lost">
                                                 </form>
                                             </td>
                                         </tr>
+                                        <tr><td>fsdf</td></tr>
+                                        
+                                        
                                     @endforeach
+                                    @if ($issued -> count() == 0)
+                                        <tr>
+                                            <td colspan="7" style="text-align: center">No record in database</td>
+                                        </tr>
+                                    @endif
                                     </tfoot>
                             </table>
                         </div>

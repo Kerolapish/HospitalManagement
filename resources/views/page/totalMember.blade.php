@@ -64,6 +64,7 @@
                                             <th>Birth Date</th>
                                             <th>Phone Number</th>
                                             <th>Period of Membership</th>
+                                            <th>Status</th>
                                             <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
@@ -75,8 +76,9 @@
                                                 <td>{{ $totalMembers->birth }}</td>
                                                 <td>{{ $totalMembers->PhoneNum }}</td>
                                                 <td>{{ $totalMembers->period}}</td>
+                                                <td>{{ $totalMembers->havePending}}</td>
 
-                                                <td>
+                                                <td style="text-align: center">
                                                     <form action="{{ url('deleteMembers', $totalMembers->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @csrf
@@ -86,9 +88,23 @@
 
                                                     <a class="btn btn-primary btn-xs"
                                                         href="{{ url('update_page', $totalMembers->id) }}">Update</a>
+
+                                                    @if ($totalMembers -> havePending == "Blacklisted")
+                                                        <form action="{{ url('revokeMember', $totalMembers->id) }}" method="POST"
+                                                            accept-charset="UTF-8" style="display:inline">
+                                                            @csrf
+                                                            <input class="btn btn-warning btn-xs" type="submit"
+                                                                value="Revoke">
+                                                        </form>
+                                                    @endif 
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @if ($member -> count() == 0)
+                                        <tr>
+                                            <td colspan="7" style="text-align: center">No record in database</td>
+                                        </tr>
+                                        @endif
                                         </tfoot>
                                 </table>
                             </div>

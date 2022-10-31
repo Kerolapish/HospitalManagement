@@ -11,22 +11,19 @@
 - [x] Retrieve issued list
 - [x] Refactor issue
 - [x] Refactor issued
-- [/] Register Issues @yedd77
+- [x] Register Issues @yedd77
 - [x] Button more info for total issues in admin panel @Kerolapish
-- [] Button more info for total not returned issues in admin panel
-- [] add pending issue for member column (if user have pending issues, system unable to issues new book to x member)
-- [] add availability module if book is issued
-- [] Count not return - Adminpanel
+- [x] add availability module if book is issued
+- [x] add pending issue for member column (if user have pending issues, system unable to issues new book to x member)
+- [x] Count not return - Adminpanel
+- [x] create return issued book (when clicked, user pending will return false, book availability return true)
+- [x] create lost book (when clicked, availability will change value to lost and the record will appear in lost book table)
+- [x] recover lost book
+- [x] Button more info for total not returned issues in admin panel
+- [x] revoke blacklisted
+- [x] Create no data if table is empty
 - [] update membership
-- [] create return issued book (when clicked, user pending will return false, book availability return true)
 - [] Approve user registration
-- [/] add flash message after register, update, delete book @Kerolapish
-- [/] add flash message after register, update, delete total member @Kerolapish
-- [/] add flash message after register, lost, return issued book @Kerolapish
-- [] Date validation for book issues
-- []
-- []
-- []
 - []
 - []
 - []

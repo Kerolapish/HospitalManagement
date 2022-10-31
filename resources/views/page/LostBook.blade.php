@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Total Book</title>
+    <title>LibMan</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -33,12 +33,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Total Book</h1>
+                            <h1 class="m-0">Lost Book</h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Total Book</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="\LostBook">Lost Book </a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,7 +52,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Book data</h3>
+                            <h3 class="card-title">Lost Book List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -62,32 +63,27 @@
                                         <th>Author</th>
                                         <th>Year</th>
                                         <th>Price</th>
-                                        <th>Availability</th>
                                         <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($book as $Library)
+                                    @foreach ($lost as $book)
                                         <tr>
-                                            <td>{{ $Library->name }}</td>
-                                            <td>{{ $Library->author }}</td>
-                                            <td>{{ $Library->year }}</td>
-                                            <td>RM {{ $Library->price }}</td>
-                                            <td>{{ $Library -> Availability}}</td>
+                                            <td>{{ $book-> name }}</td>
+                                            <td>{{ $book-> author }}</td>
+                                            <td>{{ $book-> year }}</td>
+                                            <td>{{ $book-> price }}</td>
 
                                             <td>
-                                                <form action="{{ url('delete', $Library->id) }}" method="POST"
+                                                <form action="{{ url('recoverBook', $book->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
-                                                    <input class="btn btn-danger btn-xs" type="submit" value="Delete">
+                                                    <input class="btn btn-info btn-xs" type="submit" value="Recover">
                                                 </form>
-
-                                                <a class="btn btn-primary btn-xs"
-                                                    href="{{ url('updateBookView', $Library->id) }}">Update</a>
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @if ($book -> count() == 0)
+                                    @if ($lost -> count() == 0)
                                         <tr>
                                             <td colspan="7" style="text-align: center">No record in database</td>
                                         </tr>
@@ -103,22 +99,22 @@
             </div>
             <!-- /.content -->
         </div>
-            <!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
 
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
 
-            <!-- Main Footer -->
-            @include('layouts.footer')
-        </div>
-        <!-- ./wrapper -->
+        <!-- Main Footer -->
+        @include('layouts.footer')
+    </div>
+    <!-- ./wrapper -->
 
-        <!-- REQUIRED SCRIPTS -->
+    <!-- REQUIRED SCRIPTS -->
 
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script src="\plugins\jquery\jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
