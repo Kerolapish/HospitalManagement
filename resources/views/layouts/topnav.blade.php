@@ -6,6 +6,6 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="\dashboard" class="nav-link">Home</a>
-      </li>
+      </li> 
     </ul>
   </nav>

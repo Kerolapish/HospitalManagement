@@ -56,7 +56,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ url('upload', $data->first()) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('upload') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -145,17 +145,17 @@
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- AdminLTE -->
-        <script src="dist/js/adminlte.js"></script>
+    <script src="\plugins\jquery\jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="\dist\js\adminlte.js"></script>
 
-        <!-- OPTIONAL SCRIPTS -->
-        <script src="plugins/chart.js/Chart.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="dist/js/pages/dashboard3.js"></script>
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="\plugins\chart.js\Chart.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="\dist\js\pages\dashboard3.js"></script>
 </body>
 
 </html>

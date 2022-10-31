@@ -62,6 +62,7 @@
                                         <th>Author</th>
                                         <th>Year</th>
                                         <th>Price</th>
+                                        <th>Availability</th>
                                         <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
@@ -72,6 +73,7 @@
                                             <td>{{ $Library->author }}</td>
                                             <td>{{ $Library->year }}</td>
                                             <td>{{ $Library->price }}</td>
+                                            <td>{{ $Library -> Availability}}</td>
 
                                             <td>
                                                 <form action="{{ url('delete', $Library->id) }}" method="POST"
@@ -112,17 +114,17 @@
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- AdminLTE -->
-        <script src="dist/js/adminlte.js"></script>
+    <script src="\plugins\jquery\jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="\dist\js\adminlte.js"></script>
 
-        <!-- OPTIONAL SCRIPTS -->
-        <script src="plugins/chart.js/Chart.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="dist/js/pages/dashboard3.js"></script>
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="\plugins\chart.js\Chart.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="\dist\js\pages\dashboard3.js"></script>
 </body>
 
 </html>

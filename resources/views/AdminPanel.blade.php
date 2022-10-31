@@ -48,11 +48,11 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>2e+6i</h3>
+                        <h3>{{$memberCount}}</h3>
 
                         <p>Total Members</p>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
+                    <a href="/totalMember" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -61,11 +61,11 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{$bookCount}}<sup style="font-size: 20px"></sup></h3>
+                        <h3>{{$bookCount}}</h3>
 
                         <p>Total Books</p>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i
+                    <a href="/totalBook" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3>{{$issuedCount}}</h3>
 
                         <p>Issues</p>
                     </div>
@@ -116,7 +116,7 @@
                                     <th>Author</th>
                                     <th>Year</th>
                                     <th>Price</th>
-                                    <th colspan="2">Action</th>
+                                    <th>Availability</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,18 +126,7 @@
                                         <td>{{ $Library->author }}</td>
                                         <td>{{ $Library->year }}</td>
                                         <td>{{ $Library->price }}</td>
-
-                                        <td>
-                                            <form action="{{ url('delete', $Library->id) }}" method="POST"
-                                                accept-charset="UTF-8" style="display:inline">
-                                                @csrf
-                                                <input class="btn btn-danger btn-xs" type="submit"
-                                                    value="Delete">
-                                            </form>
-
-                                            <a class="btn btn-primary btn-xs"
-                                                href="{{ url('updateBookView', $Library->id) }}">Update</a>
-                                        </td>
+                                        <td>{{ $Library -> Availability}}</td>
                                     </tr>
                                 @endforeach
                                 </tfoot>
@@ -168,17 +157,17 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="\plugins\jquery\jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
-    <script src="dist/js/adminlte.js"></script>
+    <script src="\dist\js\adminlte.js"></script>
 
     <!-- OPTIONAL SCRIPTS -->
-    <script src="plugins/chart.js/Chart.min.js"></script>
+    <script src="\plugins\chart.js\Chart.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard3.js"></script>
+    <script src="\dist\js\pages\dashboard3.js"></script>
 </body>
 
 </html>

@@ -46,13 +46,13 @@ Route::post('/deleteMembers/{id}' , [HomeController::class , 'deleteMembers']);
 Route::post('/deleteIssues/{id}' , [HomeController::class , 'deleteIssues']);
 // Route::post('/update_view/{id}' , [HomeController::class , 'update_view']);
 
-Route::post('/upload/{id}',[HomeController::class,'upload']);
+Route::post('/upload',[HomeController::class,'upload']);
 
 
 Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
 Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
-
-
+Route::post('/registerNewMember' , [HomeController::class , 'registerNewMember']) -> name('registerNewMember');
+Route::post('/registerNewIssue' , [HomeController::class, 'registerNewIssue']) -> name('registerNewIssue');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

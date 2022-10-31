@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->string('year')->nullable();
             $table->string('price')->nullable();
+            $table->string('Availability') -> default('Available');
             $table->timestamps();
         });
     }

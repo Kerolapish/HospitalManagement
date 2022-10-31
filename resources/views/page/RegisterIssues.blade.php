@@ -33,12 +33,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Register New Member</h1>
+                            <h1 class="m-0">Register Issue</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\registerMember">Register Member</a></li>
+                                <li class="breadcrumb-item"><a href="/issues">Register Issues</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,11 +51,11 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Member Registration Form</h3>
+                            <h3 class="card-title">Library Issue</h3>
                         </div>
-                        <form action="{{ url('registerNewMember') }}" method="POST" enctype="multipart/form-data">
+                        <!-- /.card-header -->
+                        <form action="{{ url('registerNewIssue') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
                                     @foreach ($errors->all() as $error)
@@ -66,42 +66,37 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-
-                                                <input type="text" class="form-control" name="memberName"
-                                                    placeholder="Enter member's name">
+                                                <select class="custom-select rounded-0" id="name" name="issuedName">
+                                                    <option  selected="true" disabled>Select membership name</option>
+                                                    @foreach ($member as $data) 
+                                                    <option> {{$data -> name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="Email">IC No.</label>
-                                                <input type="text" class="form-control" name="memberIC"
-                                                    placeholder="Enter member's IC number">
+                                                <label for="Email">Book Name</label>
+                                                <select class="custom-select rounded-0" id="bookName" name="issuedBook">
+                                                    <option  selected="true" disabled>Select issued book title</option>
+                                                    @foreach ($book as $data) 
+                                                    <option> {{$data -> name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="birthDate">Birth Date</label>
-                                                <input type="date" class="form-control" name="birthDate">
+                                                <label for="birthDate">Date Issued</label>
+                                                <input type="date" value ="today();" id="datepicker" class="form-control" name="issuedDate">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="phoneNum">Phone No.</label>
-                                                <input type="text" class="form-control" name="phonemember"
-                                                    placeholder="Enter member's phone number">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="memberPeriod">Period of Membership</label>
-                                                <select class="custom-select rounded-0" name="memberPeriod">
-                                                    <option>Select membership period</option>
-                                                    <option>6 Months</option>
-                                                    <option>1 Years</option>
-                                                    <option>2 Years</option>
-                                                </select>
+                                                <label for="birthDate">Date Return</label>
+                                                <input type="date" class="form-control" name="returnDate">
                                             </div>
                                         </div>
                                     </div>
@@ -111,25 +106,28 @@
                                 <button type="submit" class="btn btn-dark float-right">REGISTER</button>
                             </div>
                         </form>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
             </div>
-            <!-- /.content -->
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.content-wrapper -->
+        
+        <!-- /.content -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        @include('layouts.footer')
-    </div>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    @include('layouts.footer')
+</div>
+
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->

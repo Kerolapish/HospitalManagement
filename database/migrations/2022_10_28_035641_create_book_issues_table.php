@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('dateIssued');
             $table->string('dateReturn');
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

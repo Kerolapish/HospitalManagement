@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class totalMembers extends Model
 {
     use HasFactory;
+    
 }
