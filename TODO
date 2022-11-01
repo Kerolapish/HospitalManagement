@@ -23,10 +23,10 @@
 - [x] revoke blacklisted
 - [x] Create no data if table is empty
 - [x] Forbidden page for unauthorize user
-- [] update membership
-- [] Approve user registration
-- []
-- []
+- [x] update membership
+- [x] Approve user registration
+- [x] add current auth
+- [x] Count record row
 - []
 - []
 - []

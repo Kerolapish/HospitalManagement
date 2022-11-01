@@ -56,6 +56,10 @@ Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
 Route::post('/updateMember/{id}',[HomeController::class,'updateMembership']);
 Route::post('/registerNewMember' , [HomeController::class , 'registerNewMember']) -> name('registerNewMember');
 Route::post('/registerNewIssue' , [HomeController::class, 'registerNewIssue']) -> name('registerNewIssue');
+Route::get('/userManagement' , [HomeController::class , 'userManagement']) -> name('userManagement');
+Route::post('/acceptReg/{id}' , [HomeController::class , 'acceptReg']) -> name('acceptReg');
+Route::post('/revokeAuth/{id}' , [HomeController::class , 'revokeAuth']) -> name('revokeAuth');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

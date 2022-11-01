@@ -108,6 +108,10 @@
                                         <tr>
                                             <td colspan="7" style="text-align: center">No record in database</td>
                                         </tr>
+                                        @else
+                                        <tr>
+                                            <td colspan="7" style="text-align: center">Showing {{$member -> count()}} record(s) from database</td>
+                                        </tr>
                                         @endif
                                         </tfoot>
                                 </table>

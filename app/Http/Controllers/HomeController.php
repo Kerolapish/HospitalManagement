@@ -42,6 +42,33 @@ class HomeController extends Controller
         }
     }
 
+    //go to user management page
+    public function userManagement(){
+
+        $data = User::all();
+        return view ('Page.UserManagement' , compact('data'));
+    }
+
+    //function to accept user registration
+    public function acceptReg($id){
+        $Accept = User::find($id);
+        $Accept -> role = "Admin";
+        $Accept -> save();
+        $data = User::all();
+
+        return view ('Page.UserManagement' , compact('data'));
+    }
+
+    //function to revoke user authorization 
+    public function revokeAuth($id){
+        $revoke = User::find($id);
+        $revoke -> role = "User";
+        $revoke -> save();
+        $data = User::all();
+
+        return view('Page.UserManagement' , compact('data'));
+    }
+
     //////////////////////////////////
 
     // PROFILE FUNCTION
