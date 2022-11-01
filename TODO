@@ -22,6 +22,7 @@
 - [x] Button more info for total not returned issues in admin panel
 - [x] revoke blacklisted
 - [x] Create no data if table is empty
+- [x] Forbidden page for unauthorize user
 - [] update membership
 - [] Approve user registration
 - []

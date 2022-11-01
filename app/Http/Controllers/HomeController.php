@@ -26,15 +26,19 @@ class HomeController extends Controller
 
     //index function, called after user login
     public function redirectInit(){
-        $data = User::all();
-        $book = Library::all();
-        $bookCount = Library::count();
-        $memberCount = totalMembers::count();
-        $member = totalMembers::all();
-        $issuedCount = bookIssue::count();
-        $lostBook = Library::where('Availability' , 'Lost') -> get();
-        $lostBook = $lostBook -> count();
-        return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+        if(Auth::user()-> role == "Admin"){
+            $data = User::all();
+            $book = Library::all();
+            $bookCount = Library::count();
+            $memberCount = totalMembers::count();
+            $member = totalMembers::all();
+            $issuedCount = bookIssue::count();
+            $lostBook = Library::where('Availability' , 'Lost') -> get();
+            $lostBook = $lostBook -> count();
+            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+        } else {
+            return view('layouts.forbidden');
+        }
     }
 
     //////////////////////////////////
