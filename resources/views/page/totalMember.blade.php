@@ -85,9 +85,13 @@
                                                         <input class="btn btn-danger btn-xs" type="submit"
                                                             value="Delete">
                                                     </form>
-
-                                                    <a class="btn btn-primary btn-xs"
-                                                        href="{{ url('update_page', $totalMembers->id) }}">Update</a>
+                                                    
+                                                    <form action="{{ url('updateMembersPage' , $totalMembers->id) }}" method="POST"
+                                                        accept-charset="UTF-8" style="display:inline">
+                                                        @csrf
+                                                        <input type="submit" class="btn btn-primary btn-xs"
+                                                         value="update">
+                                                    </form>
 
                                                     @if ($totalMembers -> havePending == "Blacklisted")
                                                         <form action="{{ url('revokeMember', $totalMembers->id) }}" method="POST"

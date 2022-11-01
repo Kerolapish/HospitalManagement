@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel</title>
+    <title>LibMan</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -26,7 +26,6 @@
         <!-- Main Sidebar Container -->
         @include('layouts.sidebar')
 
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -34,12 +33,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Book Registration</h1>
+                            <h1 class="m-0">Update Member Registration</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\registerBook">Register Book</a></li>
+                                <li class="breadcrumb-item"><a href="\#">Update Member</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -48,85 +47,75 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div class="content">                                        
-                @include('flash-message')
+            <div class="content">
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Book Registration Form</h3>
+                            <h3 class="card-title">Library Member Update Registration Form</h3>
                         </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form action="{{ url('upload') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('updateMember' , $member->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
+                                    @foreach ($errors->all() as $error)
+                                        <p class="text-danger">{{ $error }}</p>
+                                    @endforeach
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <span style="color:red">
-                                                @error('name')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span><br>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">BOOK NAME</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    placeholder="enter book name">
+                                                <label for="name">Name</label>
+
+                                                <input type="text" class="form-control" name="memberName"
+                                                    placeholder="Enter member's name" value="{{$member->name}}">
                                             </div>
                                         </div>
-
                                         <div class="col-md-4">
-                                            <span style="color:red">
-                                                @error('author')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span><br>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">AUTHOR</label>
-                                                <input type="text" class="form-control" name="author"
-                                                    placeholder="enter book author">
+                                                <label for="Email">IC No.</label>
+                                                <input type="text" class="form-control" name="memberIC"
+                                                    placeholder="Enter member's IC number" value="{{$member->IcNum}}">
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <span style="color:red">
-                                                @error('year')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span><br>
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">PUBLISHING YEAR</label>
-                                                <input type="text" class="form-control" name="year"
-                                                    placeholder="enter book year">
+                                                <label for="birthDate">Birth Date</label>
+                                                <input type="date" class="form-control" name="birthDate" value="{{$member->birth}}">
                                             </div>
                                         </div>
-
                                         <div class="col-md-4">
-                                            <span style="color:red">
-                                                @error('price')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span><br>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">PRICE</label>
-                                                <input type="text" class="form-control" name="price"
-                                                    placeholder="enter price">
+                                                <label for="phoneNum">Phone No.</label>
+                                                <input type="text" class="form-control" name="phonemember"
+                                                    placeholder="Enter member's phone number" value="{{$member->PhoneNum}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="memberPeriod">Period of Membership</label>
+                                                <select class="custom-select rounded-0" name="memberPeriod">
+                                                    <option>Select membership period</option>
+                                                    <option>6 Months</option>
+                                                    <option>1 Years</option>
+                                                    <option>2 Years</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-secondary float-right">Submit</button>
+                                <button type="submit" class="btn btn-dark float-right">UPDATE</button>
                             </div>
                         </form>
-                        <!-- /.row -->
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.container-fluid -->
+                    <!-- /.row -->
                 </div>
+                <!-- /.container-fluid -->
             </div>
             <!-- /.content -->
         </div>
@@ -140,12 +129,12 @@
 
         <!-- Main Footer -->
         @include('layouts.footer')
+    </div>
+    <!-- ./wrapper -->
 
-        <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
 
-        <!-- REQUIRED SCRIPTS -->
-
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script src="\plugins\jquery\jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>

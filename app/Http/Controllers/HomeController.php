@@ -19,7 +19,8 @@ class HomeController extends Controller
 
     //PRIMARY FUNCTION
     //go to profile page
-    public function profilePage(){
+    public function profilePage()
+    {
         $data = User::all();
         return view('page.profile' , compact('data'));
     }
@@ -91,7 +92,7 @@ class HomeController extends Controller
         $library->year=$request->year;
         $library->price=$request->price;
         $library->save();
-        return view('Page.register' , compact('data')) -> with('success');
+        return view('Page.register' , compact('data')) -> with('successBook', 'has been inserted');
     }
 
     //function for delete book
@@ -180,6 +181,28 @@ class HomeController extends Controller
         $data = User::all();
         $member = totalMembers::all();
         return view('page.totalMember' , compact('data' , 'member'));
+    }
+
+    //function to go to updateMembers page
+    public function updateMembersPage($id){
+        $member = totalMembers::find($id);
+        $data = User::all();
+        return view('page.updateMembers', compact('data', 'member'));
+    }
+
+    //function to update member  
+    public function updateMembership(Request $request, $id){
+        $data = User::all();
+        $memberUpdate = totalMembers::find($id);
+        $memberUpdate->name= $request->memberName;
+        $memberUpdate->IcNum= $request->memberIC;
+        $memberUpdate->birth= $request->birthDate;
+        $memberUpdate->PhoneNum= $request->phonemember;
+        $memberUpdate->period= $request->memberPeriod;
+        $memberUpdate->save();
+        $member = totalMembers::all();
+
+        return view('page.totalMember', compact('data' , 'member'));
     }
 
     //////////////////////////////////
