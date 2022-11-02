@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('IcNum')->unique();
-            $table->string('birth');
+            $table->string('birth');  
             $table->string('PhoneNum'); 
             $table->string('period');
             $table -> string('havePending') -> default('clear');
-            $table->timestamps();
+            $table -> timestamps();
         });
     }
 
