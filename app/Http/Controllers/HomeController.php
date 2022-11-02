@@ -12,6 +12,7 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use LDAP\Result;
+use DateTime;
 
 
 class HomeController extends Controller
@@ -151,8 +152,9 @@ class HomeController extends Controller
         $bookCount = Library::count();
         $memberCount = totalMembers::count();
         $issuedCount = bookIssue::count();
-
-        return view('AdminPanel', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount'));
+        $lostbookCount =  Library::where('Availability' , 'Lost' ) -> get();
+        $lostBook = $lostbookCount -> count();
+        return view('AdminPanel', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount', 'lostBook'));
     }
 
     //go to total book page
@@ -174,11 +176,21 @@ class HomeController extends Controller
     //function to register new member
     public function registerNewMember(Request $request){
         $member = new totalMembers();
+        $date = new DateTime('now');
         $member -> name = $request -> memberName;
         $member -> IcNum = $request -> memberIC;
         $member -> birth = $request -> birthDate;
-        $member -> PhoneNum = $request -> phonemember; 
-        $member -> period = $request -> memberPeriod;
+        $member -> PhoneNum = $request -> phonemember;
+
+        if($request -> memberPeriod == "6 Months"){
+            $date->modify('+6 month');
+        } else if ($request -> memberPeriod == "1 Year") {
+            $date->modify('+12 month');
+        } else if ($request -> memberPeriod == "2 Years"){
+            $date->modify('+24 month');
+        }
+        $date = $date->format('Y-m-d');
+        $member -> period = $date;
         $member->save();
         $data = User::all();
         return view('page.registerMember' , compact('data'));
@@ -220,12 +232,24 @@ class HomeController extends Controller
     //function to update member  
     public function updateMembership(Request $request, $id){
         $data = User::all();
+       
         $memberUpdate = totalMembers::find($id);
+        $date = new DateTime($memberUpdate->period);
+        
         $memberUpdate->name= $request->memberName;
         $memberUpdate->IcNum= $request->memberIC;
         $memberUpdate->birth= $request->birthDate;
         $memberUpdate->PhoneNum= $request->phonemember;
-        $memberUpdate->period= $request->memberPeriod;
+
+        if($request -> memberPeriod == "6 Months"){
+            $date->modify('+6 month');
+        } else if ($request -> memberPeriod == "1 Year") {
+            $date->modify('+12 month');
+        } else if ($request -> memberPeriod == "2 Years"){
+            $date->modify('+24 month');
+        } 
+        $date = $date->format('Y-m-d');  
+        $memberUpdate->period= $date;
         $memberUpdate->save();
         $member = totalMembers::all();
 

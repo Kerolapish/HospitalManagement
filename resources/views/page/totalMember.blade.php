@@ -75,7 +75,7 @@
                                                 <td>{{ $totalMembers->IcNum }}</td>
                                                 <td>{{ $totalMembers->birth }}</td>
                                                 <td>{{ $totalMembers->PhoneNum }}</td>
-                                                <td>{{ $totalMembers->period}}</td>
+                                                <td>{{$totalMembers->period}}</td>
                                                 <td>{{ $totalMembers->havePending}}</td>
 
                                                 <td style="text-align: center">

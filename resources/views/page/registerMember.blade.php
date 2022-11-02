@@ -99,7 +99,7 @@
                                                 <select class="custom-select rounded-0" name="memberPeriod">
                                                     <option>Select membership period</option>
                                                     <option>6 Months</option>
-                                                    <option>1 Years</option>
+                                                    <option>1 Year</option>
                                                     <option>2 Years</option>
                                                 </select>
                                             </div>
