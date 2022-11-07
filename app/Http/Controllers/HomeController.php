@@ -28,7 +28,9 @@ class HomeController extends Controller
 
     //index function, called after user login
     public function redirectInit(){
-        if(Auth::user()-> role == "Admin"){
+
+        if(Auth::user()-> role == "Superadmin"){
+
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
@@ -37,7 +39,25 @@ class HomeController extends Controller
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
-            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
+             "memberCount", "lostBook"));
+
+        } else if (Auth::user()-> role == "AdminStudent"){
+
+            $data = User::all();
+            $book = Library::all();
+            $bookCount = Library::count();
+            $memberCount = totalMembers::count();
+            $member = totalMembers::all();
+            $issuedCount = bookIssue::count();
+            $lostBook = Library::where('Availability' , 'Lost') -> get();
+            $lostBook = $lostBook -> count();
+            return view('student.StudentPanel', compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
+            "memberCount", "lostBook"));
+        } else if (Auth::user() ->role == "AdminBook"){
+            //show AdminBook panel
+        } else if (Auth::user() -> role =="Student"){
+            //show Student panel
         } else {
             return view('layouts.forbidden');
         }
@@ -341,6 +361,57 @@ class HomeController extends Controller
 
     //function to recover lost book
     public function recoverBook($id){
+        $recovered = Library::find($id);
+        $recovered -> Availability = "Available";
+        $recovered -> save();
+        $data = User::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('page.LostBook' , compact('data' , 'lost'));
+    }
+
+    //////////////////////////////////
+
+    //Student Admin Function
+    //Function to go to Membership List at student admin
+    public function StudMember(){
+        $member = totalMembers::all();
+        $data = User::all(); 
+        return view('student.StudentMember' , compact('member'  , 'data'));
+    }
+
+    //go to register issues page at student Admin
+    public function StudRegIssue(){
+        $member = totalMembers::where('havePending' , 'clear') -> get();
+        $book = Library::where('Availability' , 'Available') -> get();
+        $data = User::all();
+        return view('student.StudentRegIssue' , compact('data', 'member' , 'book'));
+    }
+
+    //go to register issues page at student Admin
+    public function StudentRegIssue(){
+        $member = totalMembers::where('havePending' , 'clear') -> get();
+        $book = Library::where('Availability' , 'Available') -> get();
+        $data = User::all();
+        return view('student.StudentRegIssue' , compact('data', 'member' , 'book'));
+    }
+
+    //go to Issued Book page at student admin
+    public function StudentIssueList(){
+        $issued = BookIssue::all();
+        $data = User::all(); 
+        return view('student.StudentIssueList' , compact('issued'  , 'data'));
+    }
+
+    //function to go to lost book page at admin student
+    public function StudentLostBook(){
+
+        $data = user::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('student.StudentLost' , compact('data' , 'lost'));
+    }
+
+    //function to recover lost book
+    public function StudenRecoverBook($id){
         $recovered = Library::find($id);
         $recovered -> Availability = "Available";
         $recovered -> save();
