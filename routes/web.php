@@ -71,6 +71,7 @@ Route::post('/promoteMember/{id}' , [HomeController::class , 'promoteMember']) -
 Route::get('/User/Profile' , [studentController::class , 'userProfile']) -> name('userProfile');
 Route::get('/User/BookIssued/{id}' , [studentController::class , "userBookIssued"]) -> name('userBookIssued');
 Route::get('/User/History/{id}' , [studentController::class , "userHistory"]) -> name('userHistory');
+Route::post('/User/updateInfoStudent/{id}' , [studentController::class , "updateInfoStudent"]) -> name('updateInfoStudent');
 
 
 //////////////////////////////////

@@ -50,61 +50,69 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Book Issued</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Book Name</th>
-                                    <th>Date Issued</th>
-                                    <th>Date Returned</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($book as $Library)  
-                                    <tr>
-                                        <td>{{ $Library -> bookName }}</td>
-                                        <td>{{ $Library -> dateIssued }}</td>
-                                        <td>{{ $Library -> dateReturn }}</td>
-                                        @php
-                                         $datetoday = new DateTime("now");
-                                         $dateReturn = new DateTime($Library -> dateReturn);
-                                         $dateDiff = $datetoday -> diff($dateReturn);
-                                         if ($dateDiff -> days == 0){
-                                            
-                                            $status = "Please return the book today";
-
-                                         } else if ($datetoday < $dateReturn && $dateDiff -> days <= 7){
-
-                                            $status = "Please return the book in " . $dateDiff -> days . " days";
-
-                                         }else {
-
-                                            $status = "Please return the book immediately";
-                                         }
-                                        @endphp
-                                        <td>{{$status}}</td>
-                                    </tr>
-                                @endforeach
-                                @if ($book -> count() == 0)
-                                <tr>
-                                    <td colspan="5" style="text-align: center">You have no current issued book</td>
-                                </tr>
-                                @else
-                                <tr>
-                                    <td colspan="5" style="text-align: center">Showing {{$book -> count()}} record(s) from database</td>
-                                </tr>
-                                @endif
-                                </tfoot>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
+            @if (Auth::User()->haveCompleteReg == 0)
+            <div class="callout callout-danger">
+              <h5> Note:</h5>
+              Plese complete your registration to access student panel
             </div>
+            @else
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Book Issued</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Book Name</th>
+                                <th>Date Issued</th>
+                                <th>Date Returned</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($book as $Library)  
+                                <tr>
+                                    <td>{{ $Library -> bookName }}</td>
+                                    <td>{{ $Library -> dateIssued }}</td>
+                                    <td>{{ $Library -> dateReturn }}</td>
+                                    @php
+                                     $datetoday = new DateTime("now");
+                                     $dateReturn = new DateTime($Library -> dateReturn);
+                                     $dateDiff = $datetoday -> diff($dateReturn);
+                                     if ($dateDiff -> days == 0){
+                                        
+                                        $status = "Please return the book today";
+
+                                     } else if ($datetoday < $dateReturn && $dateDiff -> days <= 7){
+
+                                        $status = "Please return the book in " . $dateDiff -> days . " days";
+
+                                     }else {
+
+                                        $status = "Please return the book immediately";
+                                     }
+                                    @endphp
+                                    <td>{{$status}}</td>
+                                </tr>
+                            @endforeach
+                            @if ($book -> count() == 0)
+                            <tr>
+                                <td colspan="5" style="text-align: center">You have no current issued book</td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="5" style="text-align: center">Showing {{$book -> count()}} record(s) from database</td>
+                            </tr>
+                            @endif
+                            </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+        </div>
+            @endif
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
