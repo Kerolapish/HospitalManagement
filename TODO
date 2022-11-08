@@ -27,7 +27,46 @@
 - [x] Approve user registration
 - [x] add current auth
 - [x] Count record row
+
+STUDENT MANAGEMENT 
+- [] Create folder Student
+- [] new sidebar for Admin Student Panel
+- [] add new panel from dashboard
+- [] add register issue
+- [] add issued list
+- [] create list of unregistered 'user'
+- [] add accept registered user
+- [] add view registered user list
+- [] add update registered user list
+- [] add delete registered user list
+
+BOOK MANAGEMENT 
+- [] Create folder Book
+- [] new sidebar for Admin Book Panel
+- [] add and create book registration {add ISBN, Author}
+- [] create Author select from list or type new author name
+- [] add booklist 
+- [] add update booklist
+- [] add delete booklist
+- [] add view lost book
+- [] add recover lost book
+- [] add register issues
+- [] add and change delete pending (delete pending for user statu)
+- [] add declare lost book
+- [] add returned book
+- [] create register author
+- [] create update author
+- [] create delete
+
+PUBLIC
+- [] add verification to email (only verified user can access to the site)
+- [] change 405 page 
+- [x] add new role adminStudent, adminBook, student, SuperAdmin
+- [] add set role adminStudent, adminBook, student, SuperAdmin
 - []
+- []
+
+STUDENT
 - []
 - []
 - []

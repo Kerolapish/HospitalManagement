@@ -50,28 +50,11 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">
-                            <i class="nav-icon fas fa-id-card"></i>
-                            <p>
-                                Membership
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                        <a href="/totalMember" class="nav-link">
+                            <i class="far fa-id-card nav-icon"></i>
+                            <p>Membership List</p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/registerMember" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Register Membership</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/totalMember" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Membership List</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    </li>   
                     <li class="nav-item">
                         <a class="nav-link">
                             <i class="nav-icon fas fa-receipt"></i>
