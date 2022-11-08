@@ -69,12 +69,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($member as $totalMembers)
+                                        @foreach ($data as $totalMembers)
                                             <tr>
-                                                <td>{{ $totalMembers->name }}</td>
-                                                <td>{{ $totalMembers->IcNum }}</td>
-                                                <td>{{ $totalMembers->birth }}</td>
-                                                <td>{{ $totalMembers->PhoneNum }}</td>
+                                                <td>{{ $User->name }}</td>
+                                                <td>{{ $User->IcNum }}</td>
+                                                <td>{{ $User->birth }}</td>
+                                                <td>{{ $User->PhoneNum }}</td>
                                                 <td>{{$totalMembers->period}}</td>
                                                 <td>{{ $totalMembers->havePending}}</td>
 

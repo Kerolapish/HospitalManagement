@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table -> string('havePending') -> default('clear');
+            $table->boolean('haveCompleteReg')->default(false);
             $table->string('password');
             $table->string('role') -> default('Student');
             $table->rememberToken();

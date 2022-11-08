@@ -31,12 +31,11 @@ class HomeController extends Controller
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
-            $memberCount = totalMembers::count();
-            $member = totalMembers::all();
+            $memberCount = User::where('role' , 'Student') -> get() -> count();
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
-            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+            return view('AdminPanel' , compact('data' , 'book' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
 
         } else if(Auth::user()-> role == "AdminStudent"){
 
@@ -175,7 +174,6 @@ class HomeController extends Controller
     //function for delete book
     public function delete($id){
         $book=Library::find($id);
-
         $book->delete();
 
         return redirect('/dashboard');
@@ -199,7 +197,7 @@ class HomeController extends Controller
         $library->save();
         $book= Library::all();
         $bookCount = Library::count();
-        $memberCount = totalMembers::count();
+        $memberCount = User::where('role' , 'Student') -> get() -> count();
         $issuedCount = bookIssue::count();
         $lostbookCount =  Library::where('Availability' , 'Lost' ) -> get();
         $lostBook = $lostbookCount -> count();
@@ -218,33 +216,32 @@ class HomeController extends Controller
     // MEMBER FUNCTION
     //function for delete members
     public function deleteMembers($id){
-        $member=totalMembers::find($id);
 
+        $member = User::find($id);
         $member->delete();
-
         return redirect('/totalMember');
     }
 
     //go to totalMember Page
     public function totalMember(){
-        $member = totalMembers::all();
+       
+        $member = User::where('role' , 'Student') -> get();
         $data = User::all(); 
         return view('page.totalMember' , compact('member'  , 'data'));
     }
 
     //function to revoke member blacklist
     public function revokeMember($id){
-        $revoke = totalMembers::find($id);
+        $revoke = User::find($id);
         $revoke -> havePending = "clear";
         $revoke -> save();
         $data = User::all();
-        $member = totalMembers::all();
-        return view('page.totalMember' , compact('data' , 'member'));
+        return view('page.totalMember' , compact('data'));
     }
 
     //function to go to updateMembers page
     public function updateMembersPage($id){
-        $member = totalMembers::find($id);
+        $member = User::find($id);
         $data = User::all();
         return view('page.updateMembers', compact('data', 'member'));
     }
@@ -253,7 +250,7 @@ class HomeController extends Controller
     public function updateMembership(Request $request, $id){
         $data = User::all();
        
-        $memberUpdate = totalMembers::find($id);
+        $memberUpdate = User::find($id);
         $date = new DateTime($memberUpdate->period);
         
         $memberUpdate->name= $request->memberName;
@@ -271,9 +268,8 @@ class HomeController extends Controller
         $date = $date->format('Y-m-d');  
         $memberUpdate->period= $date;
         $memberUpdate->save();
-        $member = totalMembers::all();
 
-        return view('page.totalMember', compact('data' , 'member'));
+        return view('page.totalMember', compact('data'));
     }
 
     //////////////////////////////////
@@ -283,7 +279,7 @@ class HomeController extends Controller
     public function declareLost($id){
         $issued = BookIssue::find($id);
         $bookLost = Library::where('name' , $issued -> bookName ) -> first();
-        $memberLost = totalMembers::where('name' , $issued -> name) -> first();
+        $memberLost = User::where('name' , $issued -> name) -> first();
 
         $bookLost -> Availability = "Lost";
         $memberLost -> havePending = "Blacklisted";
@@ -303,7 +299,7 @@ class HomeController extends Controller
 
     //go to register issues page
     public function registerissues(){
-        $member = totalMembers::where('havePending' , 'clear') -> get();
+        $member = User::where('havePending' , 'clear') -> get();
         $book = Library::where('Availability' , 'Available') -> get();
         $data = User::all();
         return view('page.RegisterIssues' , compact('data', 'member' , 'book'));
@@ -313,7 +309,7 @@ class HomeController extends Controller
     public function registerNewIssue(Request $request){
 
         $issue = new bookIssue();
-        $memberIssued = totalMembers::where('name' , $request -> issuedName) -> first();
+        $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
 
         $issue -> name = $request -> issuedName;
@@ -327,7 +323,7 @@ class HomeController extends Controller
         $memberIssued -> save();
         $issue -> save();
         $data = User::all();
-        $member = totalMembers::all();
+        $member = User::all();
         $book = Library::all();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
     }
@@ -337,7 +333,7 @@ class HomeController extends Controller
 
         $bookIssued = bookIssue::find($id);
        
-        $IssuedName = totalMembers::where('name' , $bookIssued -> name) -> first();
+        $IssuedName = User::where('name' , $bookIssued -> name) -> first();
         $IssuedBook = library::where('name' , $bookIssued -> bookName) -> first();
         
         $IssuedName -> havePending = "clear";
