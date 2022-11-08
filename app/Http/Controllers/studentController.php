@@ -37,4 +37,19 @@ class studentController extends Controller
         $history = IssuedHistory::where('NameIssued' , Auth::user() -> name) -> get();
         return view ('User.userHistory' , compact('data' , 'history'));
     }
+
+    //function to save all remaining details of user
+    public function updateInfoStudent(Request $request ,$id){
+        $details = User::find($id);
+        $details -> IcNum = $request -> icNum;
+        $details -> PhoneNum = $request -> phoneNum;
+        $time = new DateTime('NOW');
+        $time->modify("+180 days");
+        $time->format('Y-m-d');
+        $details -> haveCompleteReg = 1;
+        $details -> period = $time;
+        $details -> save();
+        $data = User::all();
+        return view('User.userProfilePage' , compact('data'));
+    }
 }

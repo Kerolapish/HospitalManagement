@@ -50,44 +50,52 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            @if (Auth::User()->haveCompleteReg == 0)
+                  <div class="callout callout-danger">
+                    <h5> Note:</h5>
+                    Plese complete your registration to access student panel
+                  </div>
+            @else
             <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Issued History</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
+                <div class="card-header">
+                    <h3 class="card-title">Issued History</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Book Name</th>
+                                <th>Date Issued</th>
+                                <th>Date Expected Returned</th>
+                                <th>Date Returned</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($history as $record)  
                                 <tr>
-                                    <th>Book Name</th>
-                                    <th>Date Issued</th>
-                                    <th>Date Expected Returned</th>
-                                    <th>Date Returned</th>
+                                    <td>{{ $record -> NameIssued }}</td>
+                                    <td>{{ $record -> dateIssued }}</td>
+                                    <td>{{ $record -> dateExpectedReturn }}</td>
+                                    <td>{{$record -> dateReturned}}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($history as $record)  
-                                    <tr>
-                                        <td>{{ $record -> NameIssued }}</td>
-                                        <td>{{ $record -> dateIssued }}</td>
-                                        <td>{{ $record -> dateExpectedReturn }}</td>
-                                        <td>{{$record -> dateReturned}}</td>
-                                    </tr>
-                                @endforeach
-                                @if ($history -> count() == 0)
-                                <tr>
-                                    <td colspan="5" style="text-align: center">No Record in Database</td>   
-                                </tr>
-                                @else
-                                <tr>
-                                    <td colspan="5" style="text-align: center">Showing {{$history -> count()}} record(s) from database</td>
-                                </tr>
-                                @endif
-                                </tfoot>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-            </div>
+                            @endforeach
+                            @if ($history -> count() == 0)
+                            <tr>
+                                <td colspan="5" style="text-align: center">No Record in Database</td>   
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="5" style="text-align: center">Showing {{$history -> count()}} record(s) from database</td>
+                            </tr>
+                            @endif
+                            </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+        </div>
+            @endif
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

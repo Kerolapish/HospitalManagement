@@ -44,6 +44,12 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
         <!-- Small boxes (Stat box) -->
+        @if (Auth::User()->haveCompleteReg == 0)
+                  <div class="callout callout-danger">
+                    <h5> Note:</h5>
+                    Plese complete your registration to access student panel
+                  </div>
+        @endif
         <div class="row">
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box">
@@ -95,7 +101,7 @@
             <div class="callout callout-danger">
                 <h5> Note:</h5>
                 You have {{$bookASAPCount}} book(s) needs to be return immediately, please check <a href="{{ url('/User/BookIssued', Auth::user() -> id) }}">Book Issued</a> for more info
-                </div>
+            </div>
             @endif
             <div class="card">
                     <div class="card-header">
