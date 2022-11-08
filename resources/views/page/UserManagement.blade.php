@@ -79,27 +79,34 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td>
-                                                @if ($user->role == 'Admin')
-                                                    Admin
-                                                @else
-                                                    Pending Registration
+                                                @if ($user->role == 'Superadmin')
+                                                    Superadmin
+
+                                                @elseif ($user->role == 'AdminStudent')
+                                                    Student Admin
+
+                                                @elseif ($user->role == 'AdminBook')
+                                                    Book Admin
+                                                @elseif ($user -> role == 'Student')
+                                                    Student
+                                                @else 
+                                                    Pending verification
                                                 @endif
                                             </td>
                                             <td style="text-align: center">
-                                                @if ($user->role == 'Admin')
+                                                @if ($user->role == 'Superadmin' || $user->role == 'AdminStudent' || $user->role == 'AdminBook')
                                                     <form action="{{ url('revokeAuth', $user->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @csrf
                                                         <input class="btn btn-danger btn-xs" type="submit"
                                                             value="Revoke Authorization">
                                                     </form>
-                                                @endif
-                                                @if ($user->role == 'User')
-                                                    <form action="{{ url('acceptReg', $user->id) }}" method="POST"
+                                                @else 
+                                                    <form action="{{ url('promote', $user->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @csrf
                                                         <input class="btn btn-info btn-xs" type="submit"
-                                                            value="Accept Registration">
+                                                        value="Promote">
                                                     </form>
                                                 @endif
                                             </td>
