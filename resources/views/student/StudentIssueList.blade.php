@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.StudentSidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
