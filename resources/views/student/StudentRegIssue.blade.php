@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.StudentSidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -54,7 +54,7 @@
                             <h3 class="card-title">Library Issue</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ url('registerNewIssue') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('UploadNewIssue') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -87,12 +87,6 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Issued</label>
-                                                <input type="date" value ="today();" id="datepicker" class="form-control" name="issuedDate">
-                                            </div>
-                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="birthDate">Date Return</label>

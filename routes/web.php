@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminStudentController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\studentController;
 use App\Models\User;
@@ -85,6 +86,19 @@ Route::get('/StudentRegIssue' , [HomeController::class , "StudentRegIssue"]) -> 
 Route::get('/StudentIssueList' , [HomeController::class , "StudentIssueList"]) -> name("StudentIssueList");
 Route::get('/StudentLost' , [HomeController::class , 'StudentLostBook']) -> name("StudentLostBook");
 Route::post('/StudentRecoverBook/{id}' , [HomeController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
+
+//////////////////////////////////
+//Student Admin Route
+//Membership List
+Route::get('/StudentMember' , [AdminStudentController::class , 'StudMember']) -> name("StudentMember");
+
+//Register Issue, Issued List, Lost Book
+Route::get('/StudentRegIssue' , [AdminStudentController::class , "StudentRegIssue"]) -> name("StudRegIssue");
+Route::post('/UploadNewIssue' , [AdminStudentController::class, 'UploadNewIssue']) -> name('UploadNewIssue');
+Route::get('/StudentIssueList' , [AdminStudentController::class , "StudentIssueList"]) -> name("StudentIssueList");
+Route::get('/StudentLost' , [AdminStudentController::class , 'StudentLostBook']) -> name("StudentLostBook");
+Route::post('/StudentRecoverBook/{id}' , [AdminStudentController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
+Route::post('/declareLost/{id}' , [AdminStudentController::class , 'declareLost']);
 
 Route::middleware([
     'auth:sanctum',

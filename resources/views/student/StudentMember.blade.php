@@ -18,13 +18,13 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  @include('layouts.topnav')
-  <!-- /.navbar -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        @include('layouts.topnav')
+        <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  @include('layouts.StudentSidebar')
+        <!-- Main Sidebar Container -->
+        @include('layouts.StudentSidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -51,72 +51,73 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Members data</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
+                        <div class="card-header">
+                            <h3 class="card-title">Members data</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>IC Number</th>
+                                        <th>Phone Number</th>
+                                        <th>Period of Membership</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($member as $user)
                                         <tr>
-                                            <th>Name</th>
-                                            <th>IC Number</th>
-                                            <th>Birth Date</th>
-                                            <th>Phone Number</th>
-                                            <th>Period of Membership</th>
-                                            <th>Status</th>
-                                            <th colspan="2">Action</th>
+                                            <td>{{ $user->name }}</td>
+                                            @if ( $user -> haveCompleteReg == 0)
+                                                <td colspan="4" style="text-align:center;">User have not complete their
+                                                    registration</td>
+                                            @else
+                                                <td>{{ $user->IcNum }}</td>
+                                                <td>{{ $user->PhoneNum }}</td>
+                                                <td>{{ $user->period }}</td>
+                                                <td>{{ $user->havePending }}</td>
+                                            @endif
+                                            <td style="text-align: center">
+                                                <form action="{{ url('deleteMembers', $user->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input class="btn btn-danger btn-xs" type="submit" value="Delete">
+                                                </form>
+
+                                                <form action="{{ url('updateMembersPage', $user->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input type="submit" class="btn btn-primary btn-xs" value="update">
+                                                </form>
+
+                                                @if ($user->havePending == 'Blacklisted')
+                                                    <form action="{{ url('revokeMember', $user->id) }}" method="POST"
+                                                        accept-charset="UTF-8" style="display:inline">
+                                                        @csrf
+                                                        <input class="btn btn-warning btn-xs" type="submit"
+                                                            value="Revoke">
+                                                    </form>
+                                                @endif
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($member as $totalMembers)
-                                            <tr>
-                                                <td>{{ $totalMembers->name }}</td>
-                                                <td>{{ $totalMembers->IcNum }}</td>
-                                                <td>{{ $totalMembers->birth }}</td>
-                                                <td>{{ $totalMembers->PhoneNum }}</td>
-                                                <td>{{ $totalMembers->period}}</td>
-                                                <td>{{ $totalMembers->havePending}}</td>
-
-                                                <td style="text-align: center">
-                                                    <form action="{{ url('deleteMembers', $totalMembers->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-danger btn-xs" type="submit"
-                                                            value="Delete">
-                                                    </form>
-                                                    
-                                                    <form action="{{ url('updateMembersPage' , $totalMembers->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input type="submit" class="btn btn-primary btn-xs"
-                                                         value="update">
-                                                    </form>
-
-                                                    @if ($totalMembers -> havePending == "Blacklisted")
-                                                        <form action="{{ url('revokeMember', $totalMembers->id) }}" method="POST"
-                                                            accept-charset="UTF-8" style="display:inline">
-                                                            @csrf
-                                                            <input class="btn btn-warning btn-xs" type="submit"
-                                                                value="Revoke">
-                                                        </form>
-                                                    @endif 
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        @if ($member -> count() == 0)
+                                    @endforeach
+                                    @if ($member->count() == 0)
                                         <tr>
                                             <td colspan="7" style="text-align: center">No record in database</td>
                                         </tr>
-                                        @else
+                                    @else
                                         <tr>
-                                            <td colspan="7" style="text-align: center">Showing {{$member -> count()}} record(s) from database</td>
+                                            <td colspan="7" style="text-align: center">Showing
+                                                {{ $member->count() }} record(s) from database</td>
                                         </tr>
-                                        @endif
-                                        </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                                    @endif
+                                    </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                     <!-- /.row -->
                 </div>
@@ -132,10 +133,10 @@
         </aside>
         <!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
-  @include('layouts.footer')
-</div>
-<!-- ./wrapper -->
+        <!-- Main Footer -->
+        @include('layouts.footer')
+    </div>
+    <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
 
