@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="\plugins\fontawesome-free\css\all.min.css">
+    <link rel="stylesheet" href="\dist\css\_sidebar-mini.scss">
     <script src="https://kit.fontawesome.com/48b4d892a8.js" crossorigin="anonymous"></script>
     <!-- IonIcons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">

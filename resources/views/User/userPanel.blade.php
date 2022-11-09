@@ -56,7 +56,7 @@
                     <span class="info-box-icon bg-info"><i class="fa-solid fa-clock-rotate-left"></i></span>
                     <div class="info-box-content">
                     <span class="info-box-text">Total Book Issued</span>
-                    <span class="info-box-number">0e</span>
+                    <span class="info-box-number">{{$historyTotal}}</span>
                     </div>
                 </div>
             </div>
