@@ -13,7 +13,7 @@
             <div class="image">
                 <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
+            <div class="info active">
                 <a href="{{ url('/User/Profile') }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
 
@@ -27,13 +27,13 @@
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="{{ url('/User/BookIssued', Auth::user() -> id) }}" class="nav-link">
+                        <a href="{{ url('/User/BookIssued', Auth::user() -> id) }}" class="nav-link {{ (request()->is('User/BookIssued/*')) ? 'active' : '' }}">
                             <i class="far fa-id-card nav-icon"></i>
                             <p>Book Issued</p>
                         </a>
                     </li>   
                     <li class="nav-item">
-                        <a href="{{ url('/User/History', Auth::user() -> id) }}" class="nav-link">
+                        <a href="{{ url('/User/History', Auth::user() -> id) }}" class="nav-link {{ (request()->is('User/History/*')) ? 'active' : '' }}">
                             <i class="nav-icon fas  fa-clock-rotate-left"></i>
                             <p>Issued History</p>
                         </a>

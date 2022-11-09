@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Library;
 use App\Models\totalMembers;
 use App\Models\bookIssue;
+use App\Models\IssuedHistory;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,9 @@ class HomeController extends Controller
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
+
             return view('student.StudentPanel', compact('data' , 'book' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+     
 
         }else if(Auth::user()-> role == "AdminBook"){
 
@@ -68,7 +71,8 @@ class HomeController extends Controller
                     $bookASAPCount += 1;
                 }
             } 
-            return view ('User.userPanel', compact('data', 'book' , 'issuedCount' , 'bookASAPCount'));
+            $historyTotal = IssuedHistory::where('NameIssued', Auth::user()-> name)  -> count();
+            return view ('User.userPanel', compact('data', 'book' , 'issuedCount' , 'bookASAPCount', 'historyTotal'));
 
         } else {
             return view('layouts.forbidden');
@@ -79,7 +83,10 @@ class HomeController extends Controller
     //go to user management page
     public function userManagement(){
 
-        $data = User::all();
+        $data = User::where('role', 'Superadmin') 
+        -> orWhere('role', 'AdminBook') 
+        -> orWhere('role', 'AdminStudent') 
+        -> get();
         return view ('Page.UserManagement' , compact('data'));
     }
 
