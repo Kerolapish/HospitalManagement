@@ -61,6 +61,7 @@ Route::post('/issueReturned/{id}' , [HomeController::class , 'issueReturned']) -
 //Lost Book
 Route::get('/LostBook' , [HomeController::class , 'LostBook']) -> name('LostBook');
 Route::post('/declareLost/{id}' , [HomeController::class , 'declareLost']);
+Route::get('/issueHistory' , [HomeController::class , 'issueHistory'])->name('/issueHistory');
 //User Management
 Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');
 Route::get('/userManagement' , [HomeController::class , 'userManagement']) -> name('userManagement');

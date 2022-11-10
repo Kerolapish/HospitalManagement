@@ -82,6 +82,12 @@
                                     <p>Lost Book</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/issueHistory" class="nav-link {{ (request()->is('LostBook')) ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Issue History</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">

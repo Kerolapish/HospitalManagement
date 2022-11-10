@@ -82,12 +82,6 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="birthDate">Birth Date</label>
-                                                <input type="date" class="form-control" name="birthDate" value="{{$member->birth}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
                                                 <label for="phoneNum">Phone No.</label>
                                                 <input type="text" class="form-control" name="phonemember"
                                                     placeholder="Enter member's phone number" value="{{$member->PhoneNum}}">
