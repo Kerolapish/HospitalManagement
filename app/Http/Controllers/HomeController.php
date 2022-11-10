@@ -9,6 +9,8 @@ use App\Models\Library;
 use App\Models\totalMembers;
 use App\Models\bookIssue;
 use App\Models\Author;
+use App\Models\IssuedHistory;
+
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +23,7 @@ class HomeController extends Controller
 
     //PRIMARY FUNCTION
     //go to profile page
-    public function profilePage()
-    {
+    public function profilePage(){
         $data = User::all();
         return view('page.profile' , compact('data'));
     }
@@ -30,19 +31,32 @@ class HomeController extends Controller
     //index function, called after user login
     public function redirectInit(){
         if(Auth::user()-> role == "Superadmin"){
+        
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
-            $memberCount = totalMembers::count();
-            $member = totalMembers::all();
+            $memberCount = User::where('role' , 'Student') -> get() -> count();
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
+            
             return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
-             "memberCount", "lostBook"));
-        } else if (Auth::user()-> role == "AdminStudent"){
-            //show AdminStudent panel
-        } else if (Auth::user() ->role == "AdminBook"){
+            "memberCount", "lostBook"));
+             
+        } else if(Auth::user()-> role == "AdminStudent"){
+
+            $data = User::all();
+            $book = Library::all();
+            $bookCount = Library::count();
+            $memberCount = User::where('role' , 'AdminStudent') -> get() -> count();
+            $issuedCount = bookIssue::count();
+            $lostBook = Library::where('Availability' , 'Lost') -> get();
+            $lostBook = $lostBook -> count();
+
+            return view('student.StudentPanel', compact('data' , 'book' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
+     
+        }else if(Auth::user()-> role == "AdminBook"){
+
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
@@ -53,40 +67,75 @@ class HomeController extends Controller
             $lostBook = $lostBook -> count();
             return view('Book.BookPanel', compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
             "memberCount", "lostBook"));
-        } else if (Auth::user() -> role =="Student"){
-            //show Student panel
+
+        } else if(Auth::user()-> role == "Student"){
+
+            $data = User::all();
+            $book = Library::all();
+            $username = Auth::user() -> name;
+            $issued = bookIssue::where('name' , $username)->get();
+            $issuedCount = $issued -> count();
+            $bookASAPCount = 0;
+            foreach($issued as $issueData){
+                $datetoday = new DateTime("now");
+                $dateReturn = new DateTime($issueData -> dateReturn);
+                if ($datetoday > $dateReturn){
+                    $bookASAPCount += 1;
+                }
+            } 
+            $historyTotal = IssuedHistory::where('NameIssued', Auth::user()-> name)  -> count();
+            return view ('User.userPanel', compact('data', 'book' , 'issuedCount' , 'bookASAPCount', 'historyTotal'));
         } else {
             return view('layouts.forbidden');
         }
     }
 
+
     //go to user management page
     public function userManagement(){
 
-        $data = User::all();
-        return view ('Page.UserManagement' , compact('data'));
-    }
-
-    //function to accept user registration
-    public function acceptReg($id){
-        $Accept = User::find($id);
-        $Accept -> role = "Admin";
-        $Accept -> save();
-        $data = User::all();
-
+        $data = User::where('role', 'Superadmin') 
+        -> orWhere('role', 'AdminBook') 
+        -> orWhere('role', 'AdminStudent') 
+        -> get();
         return view ('Page.UserManagement' , compact('data'));
     }
 
     //function to revoke user authorization 
     public function revokeAuth($id){
         $revoke = User::find($id);
-        $revoke -> role = "User";
+        $revoke -> role = "Student";
         $revoke -> save();
         $data = User::all();
 
         return view('Page.UserManagement' , compact('data'));
     }
 
+    //function to go to promote user page
+    public function promote($id){
+        $promotedUser = User::find($id);
+        $data = User::all();
+        return view('page.promoteUser' , compact('data' , 'promotedUser'));
+    }
+
+    //function to promote new admin role to student
+    public function promoteMember($id, Request $request){
+        $promotedUser = User::find($id);
+        switch($request -> role){
+            case "Superadmin":
+                $promotedUser -> role = "Superadmin";
+                break;
+            case "Admin Student":
+                $promotedUser -> role = "AdminStudent";
+                break;
+            case "Admin Book":
+                $promotedUser -> role = "AdminBook";
+                break;
+        }
+        $promotedUser -> save();
+        $data = User::all();
+        return view ('Page.UserManagement' , compact('data'));
+    }
     //////////////////////////////////
 
     // PROFILE FUNCTION
@@ -143,7 +192,6 @@ class HomeController extends Controller
     //function for delete book
     public function delete($id){
         $book=Library::find($id);
-
         $book->delete();
 
         return redirect('/BookPanel');
@@ -167,7 +215,7 @@ class HomeController extends Controller
         $library->save();
         $book= Library::all();
         $bookCount = Library::count();
-        $memberCount = totalMembers::count();
+        $memberCount = User::where('role' , 'Student') -> get() -> count();
         $issuedCount = bookIssue::count();
         $lostbookCount =  Library::where('Availability' , 'Lost' ) -> get();
         $lostBook = $lostbookCount -> count();
@@ -187,64 +235,34 @@ class HomeController extends Controller
     //////////////////////////////////
 
     // MEMBER FUNCTION
-    //go to register member page
-    public function registerMember(){
-        $data = User::all();
-        return view('page.registerMember' , compact('data'));
-    }
-
-    //function to register new member
-    public function registerNewMember(Request $request){
-        $member = new totalMembers();
-        $date = new DateTime('now');
-        $member -> name = $request -> memberName;
-        $member -> IcNum = $request -> memberIC;
-        $member -> birth = $request -> birthDate;
-        $member -> PhoneNum = $request -> phonemember;
-
-        if($request -> memberPeriod == "6 Months"){
-            $date->modify('+6 month');
-        } else if ($request -> memberPeriod == "1 Year") {
-            $date->modify('+12 month');
-        } else if ($request -> memberPeriod == "2 Years"){
-            $date->modify('+24 month');
-        }
-        $date = $date->format('Y-m-d');
-        $member -> period = $date;
-        $member->save();
-        $data = User::all();
-        return view('page.registerMember' , compact('data'));
-    }
-
     //function for delete members
     public function deleteMembers($id){
-        $member=totalMembers::find($id);
 
+        $member = User::find($id);
         $member->delete();
-
         return redirect('/totalMember');
     }
 
     //go to totalMember Page
     public function totalMember(){
-        $member = totalMembers::all();
+       
+        $member = User::where('role' , 'Student') -> get();
         $data = User::all(); 
         return view('page.totalMember' , compact('member'  , 'data'));
     }
 
     //function to revoke member blacklist
     public function revokeMember($id){
-        $revoke = totalMembers::find($id);
+        $revoke = User::find($id);
         $revoke -> havePending = "clear";
         $revoke -> save();
         $data = User::all();
-        $member = totalMembers::all();
-        return view('page.totalMember' , compact('data' , 'member'));
+        return view('page.totalMember' , compact('data'));
     }
 
     //function to go to updateMembers page
     public function updateMembersPage($id){
-        $member = totalMembers::find($id);
+        $member = User::find($id);
         $data = User::all();
         return view('page.updateMembers', compact('data', 'member'));
     }
@@ -253,7 +271,7 @@ class HomeController extends Controller
     public function updateMembership(Request $request, $id){
         $data = User::all();
        
-        $memberUpdate = totalMembers::find($id);
+        $memberUpdate = User::find($id);
         $date = new DateTime($memberUpdate->period);
         
         $memberUpdate->name= $request->memberName;
@@ -267,13 +285,12 @@ class HomeController extends Controller
             $date->modify('+12 month');
         } else if ($request -> memberPeriod == "2 Years"){
             $date->modify('+24 month');
-        } 
+        }
         $date = $date->format('Y-m-d');  
         $memberUpdate->period= $date;
         $memberUpdate->save();
-        $member = totalMembers::all();
 
-        return view('page.totalMember', compact('data' , 'member'));
+        return view('page.totalMember', compact('data'));
     }
 
     //////////////////////////////////
@@ -283,7 +300,7 @@ class HomeController extends Controller
     public function declareLost($id){
         $issued = BookIssue::find($id);
         $bookLost = Library::where('name' , $issued -> bookName ) -> first();
-        $memberLost = totalMembers::where('name' , $issued -> name) -> first();
+        $memberLost = User::where('name' , $issued -> name) -> first();
 
         $bookLost -> Availability = "Lost";
         $memberLost -> havePending = "Blacklisted";
@@ -303,7 +320,7 @@ class HomeController extends Controller
 
     //go to register issues page
     public function registerissues(){
-        $member = totalMembers::where('havePending' , 'clear') -> get();
+        $member = User::where('havePending' , 'clear') -> get();
         $book = Library::where('Availability' , 'Available') -> get();
         $data = User::all();
         return view('page.RegisterIssues' , compact('data', 'member' , 'book'));
@@ -315,7 +332,7 @@ class HomeController extends Controller
        
 
         $issue = new bookIssue();
-        $memberIssued = totalMembers::where('name' , $request -> issuedName) -> first();
+        $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
 
         $issue -> name = $request -> issuedName;
@@ -329,7 +346,7 @@ class HomeController extends Controller
         $memberIssued -> save();
         $issue -> save();
         $data = User::all();
-        $member = totalMembers::all();
+        $member = User::all();
         $book = Library::all();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
 
@@ -340,7 +357,7 @@ class HomeController extends Controller
 
         $bookIssued = bookIssue::find($id);
        
-        $IssuedName = totalMembers::where('name' , $bookIssued -> name) -> first();
+        $IssuedName = User::where('name' , $bookIssued -> name) -> first();
         $IssuedBook = library::where('name' , $bookIssued -> bookName) -> first();
         
         $IssuedName -> havePending = "clear";
@@ -372,6 +389,5 @@ class HomeController extends Controller
         return view('page.LostBook' , compact('data' , 'lost'));
     }
 
-
-    
 }
+

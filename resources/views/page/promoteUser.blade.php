@@ -33,12 +33,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Register New Member</h1>
+                            <h1 class="m-0">Update Member Registration</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\registerMember">Register Member</a></li>
+                                <li class="breadcrumb-item"><a href="\#">Update Member</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,9 +51,9 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Member Registration Form</h3>
+                            <h3 class="card-title">Promote Member</h3>
                         </div>
-                        <form action="{{ url('registerNewMember') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('promoteMember' , $promotedUser->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -67,40 +67,27 @@
                                             <div class="form-group">
                                                 <label for="name">Name</label>
 
-                                                <input type="text" class="form-control" name="memberName"
-                                                    placeholder="Enter member's name">
+                                                <input type="text" class="form-control" name="memberName" disabled
+                                                    placeholder="Enter member's name" value="{{$promotedUser->name}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Email">IC No.</label>
-                                                <input type="text" class="form-control" name="memberIC"
-                                                    placeholder="Enter member's IC number">
+                                                <input type="text" class="form-control" name="memberIC" disabled
+                                                    placeholder="Enter member's IC number" value="{{$promotedUser->email}}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="birthDate">Birth Date</label>
-                                                <input type="date" class="form-control" name="birthDate">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="phoneNum">Phone No.</label>
-                                                <input type="text" class="form-control" name="phonemember"
-                                                    placeholder="Enter member's phone number">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="memberPeriod">Period of Membership</label>
-                                                <select class="custom-select rounded-0" name="memberPeriod">
-                                                    <option>Select membership period</option>
-                                                    <option>6 Months</option>
-                                                    <option>1 Year</option>
-                                                    <option>2 Years</option>
+                                                <label for="birthDate">Role</label> 
+                                                <select class="custom-select rounded-0" name="role">
+                                                    <option selected disabled>Select new role</option>
+                                                    <option>Admin Student</option>
+                                                    <option>Admin Book</option>
+                                                    <option>Superadmin</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -108,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-dark float-right">REGISTER</button>
+                                <button type="submit" class="btn btn-dark float-right">PROMOTE</button>
                             </div>
                         </form>
                         <!-- /.card-body -->

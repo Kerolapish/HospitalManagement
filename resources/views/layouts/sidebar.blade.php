@@ -26,8 +26,8 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a class="nav-link">
+                    <li class="nav-item {{ (request()->is('registerBook')) ? 'menu-open' : '' }} {{ (request()->is('totalBook')) ? 'menu-open' : '' }}">
+                        <a class="nav-link {{ (request()->is('registerBook')) ? 'active' : '' }} {{ (request()->is('totalBook')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Book
@@ -36,13 +36,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/registerBook" class="nav-link">
+                                <a href="/registerBook" class="nav-link {{ (request()->is('registerBook')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Register Book</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/totalBook" class="nav-link">
+                                <a href="/totalBook" class="nav-link {{ (request()->is('totalBook')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Book List</p>
                                 </a>
@@ -50,30 +50,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">
-                            <i class="nav-icon fas fa-id-card"></i>
-                            <p>
-                                Membership
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                        <a href="/totalMember" class="nav-link">
+                            <i class="far fa-id-card nav-icon"></i>
+                            <p>Membership List</p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/registerMember" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Register Membership</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/totalMember" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Membership List</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">
+                    </li>   
+                    <li class="nav-item {{ (request()->is('issues')) ? 'menu-open' : '' }} {{ (request()->is('Issue')) ? 'menu-open' : '' }} {{ (request()->is('LostBook')) ? 'menu-open' : '' }}">
+                        <a class="nav-link {{ (request()->is('issues')) ? 'active' : '' }} {{ (request()->is('Issue')) ? 'active' : '' }} {{ (request()->is('LostBook')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-receipt"></i>
                             <p>
                                 Book Issues
@@ -82,19 +65,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/issues" class="nav-link">
+                                <a href="/issues" class="nav-link {{ (request()->is('issues')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Register Issues</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Issue" class="nav-link">
+                                <a href="/Issue" class="nav-link {{ (request()->is('Issue')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Issued List</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/LostBook" class="nav-link">
+                                <a href="/LostBook" class="nav-link {{ (request()->is('LostBook')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Lost Book</p>
                                 </a>
@@ -102,7 +85,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/userManagement" class="nav-link">
+                        <a href="/userManagement" class="nav-link {{ (request()->is('userManagement')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>User Management</p>
                         </a>

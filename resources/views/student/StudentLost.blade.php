@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.StudentSidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,13 +33,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">User Management</h1>
+                            <h1 class="m-0">Lost Book</h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\userManagement">User Management</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Admin Student Panel</a></li>
+                                <li class="breadcrumb-item"><a href="\LostBook">Lost Book </a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -52,74 +52,44 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Registered User List</h3>
+                            <h3 class="card-title">Lost Book List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>User Name</th>
-                                        <th>User Email</th>
-                                        <th>Date Registered</th>
-                                        <th>Status</th>
+                                        <th>Book Name</th>
+                                        <th>Author</th>
+                                        <th>Year</th>
+                                        <th>Price</th>
                                         <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $user)
+                                    @foreach ($lost as $book)
                                         <tr>
+                                            <td>{{ $book-> name }}</td>
+                                            <td>{{ $book-> author }}</td>
+                                            <td>{{ $book-> year }}</td>
+                                            <td>{{ $book-> price }}</td>
+
                                             <td>
-                                                {{ $user->name }}
-
-                                                @if (Auth::user()->name == $user->name)
-                                                    &nbsp;<span class="right badge badge-info">Current Session</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>
-                                                @if ($user->role == 'Superadmin')
-                                                    Superadmin
-
-                                                @elseif ($user->role == 'AdminStudent')
-                                                    Student Admin
-
-                                                @elseif ($user->role == 'AdminBook')
-                                                    Book Admin
-                                                @elseif ($user -> role == 'Student')
-                                                    Student
-                                                @else 
-                                                    Pending verification
-                                                @endif
-                                            </td>
-                                            <td style="text-align: center">
-                                                @if ($user->role == 'Superadmin' || $user->role == 'AdminStudent' || $user->role == 'AdminBook')
-                                                    <form action="{{ url('revokeAuth', $user->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-danger btn-xs" type="submit"
-                                                            value="Revoke Authorization">
-                                                    </form>
-                                                @else 
-                                                    <form action="{{ url('promote', $user->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-info btn-xs" type="submit"
-                                                        value="Promote">
-                                                    </form>
-                                                @endif
+                                                <form action="{{ url('recoverBook', $book->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input class="btn btn-info btn-xs" type="submit" value="Recover">
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @if ($user->count() == 0)
+                                    @if ($lost -> count() == 0)
                                         <tr>
                                             <td colspan="5" style="text-align: center">No record in database</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <td colspan="5" style="text-align: center">Showing {{ $user->count() }}
-                                                record(s) from database</td>
+                                            <td colspan="5" style="text-align: center">Showing {{$lost -> count()}} record(s) from database</td>
                                         </tr>
                                     @endif
                                     </tfoot>

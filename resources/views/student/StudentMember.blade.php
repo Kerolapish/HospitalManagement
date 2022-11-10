@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.StudentSidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,13 +33,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">User Management</h1>
+                            <h1 class="m-0">Registered Member List</h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\userManagement">User Management</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Student Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="\totalMember">Membership List</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -52,74 +52,66 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Registered User List</h3>
+                            <h3 class="card-title">Members data</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>User Name</th>
-                                        <th>User Email</th>
-                                        <th>Date Registered</th>
+                                        <th>Name</th>
+                                        <th>IC Number</th>
+                                        <th>Phone Number</th>
+                                        <th>Period of Membership</th>
                                         <th>Status</th>
-                                        <th colspan="2">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $user)
+                                    @foreach ($member as $user)
                                         <tr>
-                                            <td>
-                                                {{ $user->name }}
-
-                                                @if (Auth::user()->name == $user->name)
-                                                    &nbsp;<span class="right badge badge-info">Current Session</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>
-                                                @if ($user->role == 'Superadmin')
-                                                    Superadmin
-
-                                                @elseif ($user->role == 'AdminStudent')
-                                                    Student Admin
-
-                                                @elseif ($user->role == 'AdminBook')
-                                                    Book Admin
-                                                @elseif ($user -> role == 'Student')
-                                                    Student
-                                                @else 
-                                                    Pending verification
-                                                @endif
-                                            </td>
+                                            <td>{{ $user->name }}</td>
+                                            @if ( $user -> haveCompleteReg == 0)
+                                                <td colspan="4" style="text-align:center;">User have not complete their
+                                                    registration</td>
+                                            @else
+                                                <td>{{ $user->IcNum }}</td>
+                                                <td>{{ $user->PhoneNum }}</td>
+                                                <td>{{ $user->period }}</td>
+                                                <td>{{ $user->havePending }}</td>
+                                            @endif
                                             <td style="text-align: center">
-                                                @if ($user->role == 'Superadmin' || $user->role == 'AdminStudent' || $user->role == 'AdminBook')
-                                                    <form action="{{ url('revokeAuth', $user->id) }}" method="POST"
+                                                <form action="{{ url('deleteMembers', $user->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input class="btn btn-danger btn-xs" type="submit" value="Delete">
+                                                </form>
+
+                                                <form action="{{ url('updateMembersPage', $user->id) }}" method="POST"
+                                                    accept-charset="UTF-8" style="display:inline">
+                                                    @csrf
+                                                    <input type="submit" class="btn btn-primary btn-xs" value="update">
+                                                </form>
+
+                                                @if ($user->havePending == 'Blacklisted')
+                                                    <form action="{{ url('revokeMember', $user->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
                                                         @csrf
-                                                        <input class="btn btn-danger btn-xs" type="submit"
-                                                            value="Revoke Authorization">
-                                                    </form>
-                                                @else 
-                                                    <form action="{{ url('promote', $user->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input class="btn btn-info btn-xs" type="submit"
-                                                        value="Promote">
+                                                        <input class="btn btn-warning btn-xs" type="submit"
+                                                            value="Revoke">
                                                     </form>
                                                 @endif
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @if ($user->count() == 0)
+                                    @if ($member->count() == 0)
                                         <tr>
-                                            <td colspan="5" style="text-align: center">No record in database</td>
+                                            <td colspan="7" style="text-align: center">No record in database</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <td colspan="5" style="text-align: center">Showing {{ $user->count() }}
-                                                record(s) from database</td>
+                                            <td colspan="7" style="text-align: center">Showing
+                                                {{ $member->count() }} record(s) from database</td>
                                         </tr>
                                     @endif
                                     </tfoot>

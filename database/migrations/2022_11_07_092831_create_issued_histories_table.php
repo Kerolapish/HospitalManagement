@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('total_members', function (Blueprint $table) {
+        Schema::create('issued_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('IcNum')->unique();
-            $table->string('birth');  
-            $table->string('PhoneNum'); 
-            $table->string('period');
-            $table -> string('havePending') -> default('clear');
-            $table -> timestamps();
+            $table->string('NameIssued');
+            $table->string('BookIssued');
+            $table->string('dateExpectedReturn');
+            $table->string('dateIssued');
+            $table->string('dateReturned');
+            $table->timestamps();
         });
     }
-
+   
     /**
      * Reverse the migrations.
      *
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('total_members');
+        Schema::dropIfExists('issued_histories');
     }
 };

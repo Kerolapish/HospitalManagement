@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AdminStudentController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\studentController;
 use App\Models\User;
 use App\Models\Library;
 use App\Models\totalMembers;
@@ -29,37 +31,75 @@ Route::get('/welcome', function () {
 });
 
 
+
+//////////////////////////////////
+//Super Admin Route
+//Profile Page
 Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('Profile Page');
 Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
-
 Route::post('/change-password', [ChangePasswordController::class, 'store']) -> name('change-password');
 Route::get('/registerBook' , [HomeController::class , 'registerBook']) -> name('registerbook');
-
+//Book Management 
+Route::get('/totalBook' , [HomeController::class , "totalBook"]) -> name("totalBook");
+Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
+Route::post('/delete/{id}' , [HomeController::class , 'delete']);
+Route::post('/upload',[HomeController::class,'upload']);
+Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
+//Membership
+Route::post('/registerNewMember' , [HomeController::class , 'registerNewMember']) -> name('registerNewMember');
 Route::get('/registerMember' , [HomeController::class , "registerMember"]) -> name("registerMember");
 Route::get('/totalMember' , [HomeController::class , "totalMember"]) -> name("totalMember");
-Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
-Route::get('/totalBook' , [HomeController::class , "totalBook"]) -> name("totalBook");
-
-Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("registerissues");
-
-Route::post('/delete/{id}' , [HomeController::class , 'delete']);
 Route::post('/deleteMembers/{id}' , [HomeController::class , 'deleteMembers']);
 Route::post('/updateMembersPage/{id}' , [HomeController::class , 'updateMembersPage']);
-Route::post('/declareLost/{id}' , [HomeController::class , 'declareLost']);
-Route::post('/issueReturned/{id}' , [HomeController::class , 'issueReturned']) -> name('issueReturned');
-Route::post('/revokeMember/{id}' , [HomeController::class , 'revokeMember']) -> name('revokeMember');
-
-Route::post('/upload',[HomeController::class,'upload']);
-Route::get('/LostBook' , [HomeController::class , 'LostBook']) -> name('LostBook');
-Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');
-Route::get('/updateBookView/{id}',[HomeController::class,'updateBookView']);
-Route::post('/updateBook/{id}',[HomeController::class,'updateBook']);
 Route::post('/updateMember/{id}',[HomeController::class,'updateMembership']);
-Route::post('/registerNewMember' , [HomeController::class , 'registerNewMember']) -> name('registerNewMember');
+Route::post('/revokeMember/{id}' , [HomeController::class , 'revokeMember']) -> name('revokeMember');
+//Issue
 Route::post('/registerNewIssue' , [HomeController::class, 'registerNewIssue']) -> name('registerNewIssue');
+Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
+Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("registerissues");
+Route::post('/issueReturned/{id}' , [HomeController::class , 'issueReturned']) -> name('issueReturned');
+//Lost Book
+Route::get('/LostBook' , [HomeController::class , 'LostBook']) -> name('LostBook');
+Route::post('/declareLost/{id}' , [HomeController::class , 'declareLost']);
+//User Management
+Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');
 Route::get('/userManagement' , [HomeController::class , 'userManagement']) -> name('userManagement');
-Route::post('/acceptReg/{id}' , [HomeController::class , 'acceptReg']) -> name('acceptReg');
 Route::post('/revokeAuth/{id}' , [HomeController::class , 'revokeAuth']) -> name('revokeAuth');
+Route::post('/promote/{id}' , [HomeController::class , 'promote']) -> name('promote');
+Route::post('/promoteMember/{id}' , [HomeController::class , 'promoteMember']) -> name('promoteMember');
+
+//////////////////////////////////
+//Student Route
+Route::get('/User/Profile' , [studentController::class , 'userProfile']) -> name('userProfile');
+Route::get('/User/BookIssued/{id}' , [studentController::class , "userBookIssued"]) -> name('userBookIssued');
+Route::get('/User/History/{id}' , [studentController::class , "userHistory"]) -> name('userHistory');
+Route::post('/User/updateInfoStudent/{id}' , [studentController::class , "updateInfoStudent"]) -> name('updateInfoStudent');
+
+
+//////////////////////////////////
+
+//Student Admin Route
+//Membership List
+Route::get('/StudentMember' , [HomeController::class , 'StudMember']) -> name("StudentMember");
+
+//Register Issue, Issued List, Lost Book
+Route::get('/StudentRegIssue' , [HomeController::class , "StudentRegIssue"]) -> name("StudRegIssue");
+Route::get('/StudentIssueList' , [HomeController::class , "StudentIssueList"]) -> name("StudentIssueList");
+Route::get('/StudentLost' , [HomeController::class , 'StudentLostBook']) -> name("StudentLostBook");
+Route::post('/StudentRecoverBook/{id}' , [HomeController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
+
+//////////////////////////////////
+//Student Admin Route
+//Membership List
+Route::get('/StudentMember' , [AdminStudentController::class , 'StudMember']) -> name("StudentMember");
+
+//Register Issue, Issued List, Lost Book
+Route::get('/StudentRegIssue' , [AdminStudentController::class , "StudentRegIssue"]) -> name("StudRegIssue");
+Route::post('/UploadNewIssue' , [AdminStudentController::class, 'UploadNewIssue']) -> name('UploadNewIssue');
+Route::get('/StudentIssueList' , [AdminStudentController::class , "StudentIssueList"]) -> name("StudentIssueList");
+Route::get('/StudentLost' , [AdminStudentController::class , 'StudentLostBook']) -> name("StudentLostBook");
+Route::post('/StudentRecoverBook/{id}' , [AdminStudentController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
+Route::post('/declareLost/{id}' , [AdminStudentController::class , 'declareLost']);
 
 
 //Book Admin
@@ -82,7 +122,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', [HomeController::class , 'redirectInit'])->name('AdminPanel');
+    Route::get('/dashboard', [HomeController::class , 'redirectInit'])->name('dashboard');
 });
 
 
