@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebarBook')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,7 +33,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Register Issue</h1>
+                            <h1 class="m-0">Register Author</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -51,10 +51,10 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Issue</h3>
+                            <h3 class="card-title">Register Author</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ url('registerNewIssue') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('/Book/registerNewAuthor') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -63,22 +63,22 @@
                                     @endforeach
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-                                                <select class="custom-select rounded-0" id="name" name="issuedName">
-                                                    <option  selected="true" disabled>Select membership name</option>
+                                                <select class="custom-select rounded-0" id="name" name="authorName">
+                                                    <option  selected="true" disabled>Select author name</option>
                                                     @foreach ($member as $data) 
-                                                    <option> {{$data -> name}}</option>
+                                                    <option> {{$data -> author}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="Email">Book Name</label>
-                                                <select class="custom-select rounded-0" id="bookName" name="issuedBook">
-                                                    <option  selected="true" disabled>Select issued book title</option>
+                                                <label for="name">Book Name</label>
+                                                <select class="custom-select rounded-0" id="bookName" name="bookName">
+                                                    <option  selected="true" disabled>Select book title</option>
                                                     @foreach ($book as $data) 
                                                     <option> {{$data -> name}}</option>
                                                     @endforeach
@@ -88,15 +88,17 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Issued</label>
-                                                <input type="date" value ="today();" id="datepicker" class="form-control" name="issuedDate">
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    placeholder="enter email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Return</label>
-                                                <input type="date" id="datepicker" class="form-control" name="returnDate">
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">Number Phone</label>
+                                                <input type="text" class="form-control" name="phoneNo"
+                                                    placeholder="enter email">
                                             </div>
                                         </div>
                                     </div>

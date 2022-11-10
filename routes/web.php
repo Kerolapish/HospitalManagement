@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Models\User;
 use App\Models\Library;
@@ -59,6 +60,22 @@ Route::post('/registerNewIssue' , [HomeController::class, 'registerNewIssue']) -
 Route::get('/userManagement' , [HomeController::class , 'userManagement']) -> name('userManagement');
 Route::post('/acceptReg/{id}' , [HomeController::class , 'acceptReg']) -> name('acceptReg');
 Route::post('/revokeAuth/{id}' , [HomeController::class , 'revokeAuth']) -> name('revokeAuth');
+
+
+//Book Admin
+Route::post('/Book/uploadBook',[AuthorController::class,'uploadBook']) -> name("uploadBook");
+Route::get('/Book/BookTotal' , [AuthorController::class , "BookTotal"]) -> name("BookTotal");
+Route::get('/Book/BookRegister' , [AuthorController::class , 'BookRegister']) -> name('BookRegister');
+Route::get('/Book/BookUpdateView/{id}',[AuthorController::class,'BookUpdateView']);
+Route::post('/Book/BookUpdate/{id}',[AuthorController::class,'BookUpdate']);
+Route::get('/Book/registerAuthor' , [AuthorController::class , 'registerAuthor']) -> name('registerAuthor');
+Route::post('/Book/registerNewAuthor' , [AuthorController::class , 'registerNewAuthor']) -> name('registerNewAuthor');
+Route::get('/Book/AuthorList' , [AuthorController::class , 'AuthorList']) -> name('AuthorList');
+Route::post('/Book/deleteBook/{id}' , [AuthorController::class , 'deleteBook']);
+Route::post('/Book/deleteAuthor/{id}' , [AuthorController::class , 'deleteAuthor']);
+Route::get('/Book/AuthorUpdateView/{id}',[AuthorController::class,'AuthorUpdateView']) -> name('AuthorUpdateView');
+Route::post('/Book/AuthorUpdate/{id}',[AuthorController::class,'AuthorUpdate']) -> name('AuthorUpdate');
+
 
 Route::middleware([
     'auth:sanctum',

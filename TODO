@@ -27,6 +27,19 @@
 - [x] Approve user registration
 - [x] add current auth
 - [x] Count record row
+
+BOOK MANAGEMENT 
+- [x] Create folder Book
+- [x] new sidebar for Admin Book Panel
+- [x] add and create book registration {add ISBN, Author}
+- [x] add booklist 
+- [x] add update booklist
+- [x] add delete booklist
+- [x] create Author select from list or type new author name
+- [x] create register author
+- [] create update author
+- [] create delete
+
 - []
 - []
 - []

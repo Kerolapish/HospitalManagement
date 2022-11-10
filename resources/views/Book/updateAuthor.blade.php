@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebarBook')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,12 +33,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Register Issue</h1>
+                            <h1 class="m-0">Update Author Information</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="/issues">Register Issues</a></li>
+                                <li class="breadcrumb-item"><a href="\#">Update Member</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,11 +51,11 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Issue</h3>
+                            <h3 class="card-title">Library Member Update Registration Form</h3>
                         </div>
-                        <!-- /.card-header -->
-                        <form action="{{ url('registerNewIssue') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('Book/AuthorUpdate' , $author->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
                                     @foreach ($errors->all() as $error)
@@ -63,71 +63,63 @@
                                     @endforeach
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <select class="custom-select rounded-0" id="name" name="issuedName">
-                                                    <option  selected="true" disabled>Select membership name</option>
-                                                    @foreach ($member as $data) 
-                                                    <option> {{$data -> name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="name">Author Name</label>
+
+                                                <input type="text" class="form-control" name="authorName"
+                                                    placeholder="Enter member's name" value="{{$author->authorName}}">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="Email">Book Name</label>
-                                                <select class="custom-select rounded-0" id="bookName" name="issuedBook">
-                                                    <option  selected="true" disabled>Select issued book title</option>
-                                                    @foreach ($book as $data) 
-                                                    <option> {{$data -> name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control" name="bookName"
+                                                    placeholder="Enter member's IC number" value="{{$author->bookName}}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Issued</label>
-                                                <input type="date" value ="today();" id="datepicker" class="form-control" name="issuedDate">
+                                        <div class="form-group">
+                                                <label for="Email">Author Email</label>
+                                                <input type="text" class="form-control" name="email"
+                                                    placeholder="Enter member's IC number" value="{{$author->email}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="birthDate">Date Return</label>
-                                                <input type="date" id="datepicker" class="form-control" name="returnDate">
+                                                <label for="phoneNum">Phone No.</label>
+                                                <input type="text" class="form-control" name="phoneNo"
+                                                    placeholder="Enter member's phone number" value="{{$author->phoneNo}}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-dark float-right">REGISTER</button>
+                                <button type="submit" class="btn btn-dark float-right">UPDATE</button>
                             </div>
                         </form>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.content -->
         </div>
-        
-        <!-- /.content -->
+        <!-- /.content-wrapper -->
 
-    <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-
-    <!-- Main Footer -->
-    @include('layouts.footer')
-</div>
-
+        <!-- Main Footer -->
+        @include('layouts.footer')
+    </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
