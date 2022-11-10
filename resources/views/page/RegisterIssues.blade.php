@@ -86,20 +86,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Issued</label>
-                                                <input type="date" value ="today();" id="datepicker" class="form-control" name="issuedDate">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Return</label>
-                                                <input type="date" id="datepicker" class="form-control" name="returnDate">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

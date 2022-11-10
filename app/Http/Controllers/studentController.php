@@ -45,7 +45,7 @@ class studentController extends Controller
         $details -> PhoneNum = $request -> phoneNum;
         $time = new DateTime('NOW');
         $time->modify("+180 days");
-        $time->format('Y-m-d');
+        $time = $time -> format('Y-m-d');
         $details -> haveCompleteReg = 1;
         $details -> period = $time;
         $details -> save();

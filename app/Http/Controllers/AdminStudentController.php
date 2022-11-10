@@ -43,9 +43,12 @@ class AdminStudentController extends Controller
         $issue -> name = $request -> issuedName;
         $issue -> bookName = $request -> issuedBook;
         $today = new DateTime("now");
+        $dateReturn = $today->modify("+180 days");
+        $dateReturn = $dateReturn -> format('y-m-d');
         $today = $today -> format('y-m-d');
+        
         $issue -> dateIssued = $today;
-        $issue -> dateReturn = $request -> returnDate;
+        $issue -> dateReturn = $dateReturn;
         $memberIssued -> havePending = "Pending";
         $bookIssued -> Availability = "Issued"; 
         

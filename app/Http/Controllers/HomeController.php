@@ -93,12 +93,9 @@ class HomeController extends Controller
 
     //go to user management page
     public function userManagement(){
-
-        $data = User::where('role', 'Superadmin') 
-        -> orWhere('role', 'AdminBook') 
-        -> orWhere('role', 'AdminStudent') 
-        -> get();
-        return view ('Page.UserManagement' , compact('data'));
+        $data = User::all();
+        $user = User::all();
+        return view ('Page.UserManagement' , compact('data' , 'user'));
     }
 
     //function to revoke user authorization 
@@ -107,7 +104,7 @@ class HomeController extends Controller
         $revoke -> role = "Student";
         $revoke -> save();
         $data = User::all();
-
+        
         return view('Page.UserManagement' , compact('data'));
     }
 
@@ -132,6 +129,7 @@ class HomeController extends Controller
                 $promotedUser -> role = "AdminBook";
                 break;
         }
+        $promotedUser -> havePending = "Admin";
         $promotedUser -> save();
         $data = User::all();
         return view ('Page.UserManagement' , compact('data'));
@@ -201,7 +199,7 @@ class HomeController extends Controller
     public function updateBookView($id){
         $data = User::all();
         $book = Library::find($id);
-        return view('Page.UpdateBook', compact('data' , 'book'));
+        return view('Page.UpdateBook', compact('data' , 'book'));   
     }
 
     //function to update book  
@@ -257,7 +255,8 @@ class HomeController extends Controller
         $revoke -> havePending = "clear";
         $revoke -> save();
         $data = User::all();
-        return view('page.totalMember' , compact('data'));
+        $member = User::where('role' , 'Student') -> get();
+        return view('page.totalMember' , compact('data' , 'member'));
     }
 
     //function to go to updateMembers page
@@ -270,13 +269,11 @@ class HomeController extends Controller
     //function to update member  
     public function updateMembership(Request $request, $id){
         $data = User::all();
-       
         $memberUpdate = User::find($id);
         $date = new DateTime($memberUpdate->period);
         
         $memberUpdate->name= $request->memberName;
         $memberUpdate->IcNum= $request->memberIC;
-        $memberUpdate->birth= $request->birthDate;
         $memberUpdate->PhoneNum= $request->phonemember;
 
         if($request -> memberPeriod == "6 Months"){
@@ -290,7 +287,9 @@ class HomeController extends Controller
         $memberUpdate->period= $date;
         $memberUpdate->save();
 
-        return view('page.totalMember', compact('data'));
+        $member = User::where('role' , 'Student') -> get();
+
+        return view('page.totalMember', compact('data' , 'member'));
     }
 
     //////////////////////////////////
@@ -334,20 +333,22 @@ class HomeController extends Controller
         $issue = new bookIssue();
         $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
-
+        $today = new DateTime("now");
+        $returnDate = $today->modify("+7 days");
+        $today = $today -> format('y-m-d');
+        
         $issue -> name = $request -> issuedName;
         $issue -> bookName = $request -> issuedBook;
-        $issue -> dateIssued = $request -> issuedDate;
-        $issue -> dateReturn = $request -> returnDate;
-        $memberIssued -> havePending = "Pending";
+        $issue -> dateIssued = $today;
+        $issue -> dateReturn = $returnDate;
         $bookIssued -> Availability = "Issued"; 
         
         $bookIssued -> save();
         $memberIssued -> save();
         $issue -> save();
         $data = User::all();
-        $member = User::all();
-        $book = Library::all();
+        $member = User::where('havePending' , 'clear') -> get();
+        $book = Library::where('Availability' , 'Available') -> get();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
 
     }
@@ -356,16 +357,26 @@ class HomeController extends Controller
     public function issueReturned($id){
 
         $bookIssued = bookIssue::find($id);
-       
         $IssuedName = User::where('name' , $bookIssued -> name) -> first();
         $IssuedBook = library::where('name' , $bookIssued -> bookName) -> first();
+        $issueList = new IssuedHistory();
+
+        $issueList -> NameIssued = $IssuedName -> name;
+        $issueList -> BookIssued = $IssuedBook -> name;
+        $issueList -> dateExpectedReturn = $bookIssued -> dateReturn;
+        $issueList -> dateIssued = $bookIssued -> dateIssued;
+        $today = new DateTime("now");
+        $issueList -> dateReturned = $today;
         
         $IssuedName -> havePending = "clear";
         $IssuedBook -> Availability = "Available";
 
+        $issueList -> save();
         $IssuedName -> save();
         $IssuedBook -> save();
         $bookIssued -> delete();
+
+        
         $issued = BookIssue::all();
         $data = User::all();
         return view('page.ListIssue' , compact('issued'  , 'data'));
@@ -389,5 +400,11 @@ class HomeController extends Controller
         return view('page.LostBook' , compact('data' , 'lost'));
     }
 
+    // function to go to issue history page
+    public function issueHistory(){
+        $data = user::all();
+        $issueList = IssuedHistory::all();
+        return view('page.IssuedHistory' , compact('data' , 'issueList'));
+    }
 }
 

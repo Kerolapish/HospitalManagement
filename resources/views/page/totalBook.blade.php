@@ -89,11 +89,11 @@
                                     @endforeach
                                     @if ($book -> count() == 0)
                                         <tr>
-                                            <td colspan="5" style="text-align: center">No record in database</td>
+                                            <td colspan="6" style="text-align: center">No record in database</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <td colspan="5" style="text-align: center">Showing {{$book -> count()}} record(s) from database</td>
+                                            <td colspan="6" style="text-align: center">Showing {{$book -> count()}} record(s) from database</td>
                                         </tr>
                                     @endif
                                     </tfoot>

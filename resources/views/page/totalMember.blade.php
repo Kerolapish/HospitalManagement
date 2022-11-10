@@ -61,7 +61,6 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>IC Number</th>
-                                            <th>Birth Date</th>
                                             <th>Phone Number</th>
                                             <th>Period of Membership</th>
                                             <th>Status</th>
@@ -69,15 +68,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $totalMembers)
+                                        @foreach ($member as $totalMembers)
                                             <tr>
-                                                <td>{{ $User->name }}</td>
-                                                <td>{{ $User->IcNum }}</td>
-                                                <td>{{ $User->birth }}</td>
-                                                <td>{{ $User->PhoneNum }}</td>
+                                                <td>{{ $totalMembers->name }}</td>
+                                                @if ( $totalMembers -> haveCompleteReg == 0)
+                                                <td colspan="4" style="text-align:center;">User have not complete their
+                                                    registration</td>
+                                                @else
+                                                <td>{{ $totalMembers->IcNum }}</td>
+                                                <td>{{ $totalMembers->PhoneNum }}</td>
                                                 <td>{{$totalMembers->period}}</td>
                                                 <td>{{ $totalMembers->havePending}}</td>
-
+                                                @endif
                                                 <td style="text-align: center">
                                                     <form action="{{ url('deleteMembers', $totalMembers->id) }}" method="POST"
                                                         accept-charset="UTF-8" style="display:inline">
@@ -85,14 +87,14 @@
                                                         <input class="btn btn-danger btn-xs" type="submit"
                                                             value="Delete">
                                                     </form>
-                                                    
-                                                    <form action="{{ url('updateMembersPage' , $totalMembers->id) }}" method="POST"
-                                                        accept-charset="UTF-8" style="display:inline">
-                                                        @csrf
-                                                        <input type="submit" class="btn btn-primary btn-xs"
-                                                         value="update">
-                                                    </form>
-
+                                                    @if ( $totalMembers -> haveCompleteReg == 1)
+                                                        <form action="{{ url('updateMembersPage' , $totalMembers->id) }}" method="POST"
+                                                            accept-charset="UTF-8" style="display:inline">
+                                                            @csrf
+                                                            <input type="submit" class="btn btn-primary btn-xs"
+                                                            value="update">
+                                                        </form>
+                                                    @endif
                                                     @if ($totalMembers -> havePending == "Blacklisted")
                                                         <form action="{{ url('revokeMember', $totalMembers->id) }}" method="POST"
                                                             accept-charset="UTF-8" style="display:inline">

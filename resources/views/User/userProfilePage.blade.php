@@ -53,10 +53,12 @@
             <div class="content">
                 <div class="container-fluid">
                     @if (Auth::User()->haveCompleteReg == 0)
-                        <div class="callout callout-danger">
+                    <a href="{{url('User/Profile')}}" style="color: black" >
+                        <div class="callout callout-danger" >
                             <h5> Note:</h5>
                             Plese complete your registration to access student panel
                         </div>
+                    </a>
                     @endif
                     <div class="row">
                         <div class="col-md-3">
