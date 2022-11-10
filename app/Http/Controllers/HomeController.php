@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\Library;
 use App\Models\totalMembers;
 use App\Models\bookIssue;
+use App\Models\Author;
 use App\Models\IssuedHistory;
+
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +31,7 @@ class HomeController extends Controller
     //index function, called after user login
     public function redirectInit(){
         if(Auth::user()-> role == "Superadmin"){
+        
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
@@ -36,8 +39,10 @@ class HomeController extends Controller
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
-            return view('AdminPanel' , compact('data' , 'book' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
-
+            
+            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
+            "memberCount", "lostBook"));
+             
         } else if(Auth::user()-> role == "AdminStudent"){
 
             $data = User::all();
@@ -50,11 +55,18 @@ class HomeController extends Controller
 
             return view('student.StudentPanel', compact('data' , 'book' , 'issuedCount', 'bookCount', "memberCount", "lostBook"));
      
-
         }else if(Auth::user()-> role == "AdminBook"){
 
             $data = User::all();
-            return view ('User.userPanel', compact('data'));
+            $book = Library::all();
+            $bookCount = Library::count();
+            $memberCount = totalMembers::count();
+            $member = totalMembers::all();
+            $issuedCount = bookIssue::count();
+            $lostBook = Library::where('Availability' , 'Lost') -> get();
+            $lostBook = $lostBook -> count();
+            return view('Book.BookPanel', compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
+            "memberCount", "lostBook"));
 
         } else if(Auth::user()-> role == "Student"){
 
@@ -73,7 +85,6 @@ class HomeController extends Controller
             } 
             $historyTotal = IssuedHistory::where('NameIssued', Auth::user()-> name)  -> count();
             return view ('User.userPanel', compact('data', 'book' , 'issuedCount' , 'bookASAPCount', 'historyTotal'));
-
         } else {
             return view('layouts.forbidden');
         }
@@ -183,7 +194,7 @@ class HomeController extends Controller
         $book=Library::find($id);
         $book->delete();
 
-        return redirect('/dashboard');
+        return redirect('/BookPanel');
     }
     
     //function to go to update book Page
@@ -211,12 +222,15 @@ class HomeController extends Controller
         return view('AdminPanel', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount', 'lostBook'));
     }
 
+    
     //go to total book page
     public function totalBook(){
-        $data = user::all();
+        $data = user::all();        
         $book = Library::all();
         return view('page.totalBook' , compact('data' , 'book'));
     }
+
+    
     
     //////////////////////////////////
 
@@ -315,6 +329,8 @@ class HomeController extends Controller
     //function to register new issue
     public function registerNewIssue(Request $request){
 
+       
+
         $issue = new bookIssue();
         $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
@@ -333,6 +349,7 @@ class HomeController extends Controller
         $member = User::all();
         $book = Library::all();
         return view('page.RegisterIssues' , compact('data' , 'bookIssued' , 'member' , 'book'));
+
     }
 
     //function to return the book issued
@@ -371,4 +388,6 @@ class HomeController extends Controller
         $lost = Library::where('Availability' , 'Lost') -> get();
         return view('page.LostBook' , compact('data' , 'lost'));
     }
+
 }
+
