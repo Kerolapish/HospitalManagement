@@ -62,7 +62,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <span style="color:red">
                                                 @error('name')
                                                     {{ $message }}
@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <span style="color:red">
                                                 @error('author')
                                                     {{ $message }}
@@ -84,13 +84,20 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">AUTHOR</label>
                                                 <input type="text" class="form-control" name="author"
-                                                    placeholder="enter book author">
+                                                    placeholder="enter or select book author" list="listAuthor">
+                                                <datalist id="listAuthor">
+                                                    @if ($listAuthor->count() != 0)
+                                                        @foreach ($listAuthor as $list)
+                                                            <option>{{$list -> authorName}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
                                             <span style="color:red">
                                                 @error('year')
                                                     {{ $message }}
@@ -113,6 +120,19 @@
                                                 <label for="exampleInputEmail1">PRICE</label>
                                                 <input type="text" class="form-control" name="price"
                                                     placeholder="enter price">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <span style="color:red">
+                                                @error('ISBN')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span><br>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Book ISBN</label>
+                                                <input type="text" class="form-control" name="ISBN"
+                                                    placeholder="enter book ID">
                                             </div>
                                         </div>
                                     </div>

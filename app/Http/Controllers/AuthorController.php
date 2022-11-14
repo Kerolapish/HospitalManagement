@@ -21,9 +21,11 @@ class AuthorController extends Controller
     //go to register book page(Admin Book)
     public function BookRegister(){
         $data = User::all();
-        return view('Book.BookRegister' , compact('data'));
+        $listAuthor = Author::all();
+        return view('Book.BookRegister' , compact('data' ,'listAuthor'));
     }
     
+    //function to register book
     public function uploadBook(Request $request){
         $request->validate([
             'name'=>'required',
@@ -43,13 +45,19 @@ class AuthorController extends Controller
         );
         $library = new library();
         $data = user::all();
+        if (Author::where('authorName' , $request->author ) -> get() -> count() == 0){
+            $Author = new Author();
+            $Author -> authorName = $request -> author;
+            $Author -> save();
+        }
         $library->name=$request->name;
         $library->author=$request->author;
         $library->year=$request->year;
         $library->price=$request->price;
         $library->ISBN=$request->ISBN;
         $library->save();
-        return view('Book.BookRegister' , compact('data')) -> with('successBook', 'has been inserted');
+        $listAuthor = Author::all();
+        return view('Book.BookRegister' , compact('data' , 'listAuthor')) -> with('successBook', 'has been inserted' );
     }
 
     //go to total book page(Admin Book)
@@ -59,13 +67,14 @@ class AuthorController extends Controller
         return view('Book.BookTotal' , compact('data' , 'book'));
     }
 
-     //go to total book page(Admin Book)
+     //function delete book page
      public function deleteBook($id){
         $book=Library::find($id);
         $book->delete();
         return redirect('/dashboard');
     }
 
+    //go to update book page
     public function BookUpdateView($id){
         $data = User::all();
         $book = Library::find($id);
@@ -84,59 +93,66 @@ class AuthorController extends Controller
         $library->save();
         $book= Library::all();
         $bookCount = Library::count();
-        $memberCount = totalMembers::count();
         $issuedCount = bookIssue::count();
         $lostbookCount =  Library::where('Availability' , 'Lost' ) -> get();
         $lostBook = $lostbookCount -> count();
-        return view('Book.BookPanel', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount', 'lostBook'));
+        return view('Book.BookPanel', compact('data' , 'book' , 'bookCount' , 'issuedCount', 'lostBook'));
     }
 
 
-    //go to total book page(Admin Book)
+    //go to register new author(Admin Book)
     public function registerAuthor(){
-        $member = Library::where('role' , 'Author') -> get();
-        $book = Library::where('Availability' , 'Available') -> get();
+        $listAuthor = Author::where('haveComplete' , 0) ->get();
         $data = User::all();
-        return view('Book.AuthorRegister' , compact('data', 'member' , 'book'));
+        return view('Book.AuthorRegister' , compact('data' , 'listAuthor'));
     }
 
-    //go to total book page(Admin Book)
+    //function to register new author
     public function registerNewAuthor(Request $request){
-        $Author = new Author();
-        $authorName = library::where('author' , $request -> authorName) -> first();
-        $bookName = library::where('name' , $request -> bookName) -> first();
+         
+        if (Author::where('authorName' , $request->author) -> get() -> count() == 0){
 
-        $Author -> authorName = $request -> authorName;
-        $Author -> bookName = $request -> bookName;
-        $Author -> email = $request -> email;
-        $Author -> phoneNo = $request -> phoneNo;
+            //register for non-existing author
+            $Author = new Author();
+            $Author -> authorName = $request -> author;
+            $Author -> email = $request -> email;
+            $Author -> phoneNo = $request -> phoneNo;
+            $Author -> haveComplete = true;
 
-        //dd($request);
-        $bookName -> save();
-        $authorName -> save();
+        } else {
+            
+            //register for existing author
+            $Author = Author::where('authorName' , $request->author) -> get() -> first();
+            $Author -> authorName = $request -> author;
+            $Author -> email = $request -> email;
+            $Author -> phoneNo = $request -> phoneNo;
+            $Author -> haveComplete = true;
+        }
+        
         $Author -> save();
         $data = User::all();
-        $member = Library::all();
         $book = Library::all();
-        return view('Book.AuthorRegister' , compact('data'  , 'member' , 'book'));
+        $listAuthor = Author::where('haveComplete' , 0) ->get();
+        return view('Book.AuthorRegister' , compact('data'  , 'listAuthor', "book"));
 
     }
 
-    //go to total book page(Admin Book)
+    //function to go to list of author
     public function AuthorList(){
         $data = user::all();
         $author = author::all();
-        return view('Book.AuthorList' , compact('data' , 'author'));
+        $book = Library::all();
+        return view('Book.AuthorList' , compact('data' , 'author' , 'book'));
     }
 
-    //go to total book page(Admin Book)
+    //function to delete author by id
     public function deleteAuthor($id){
         $author=author::find($id);
         $author->delete();
         return redirect('/Book/AuthorList');
     }
 
-    //go to total book page(Admin Book)
+    //go to go to Author update page
     public function AuthorUpdateView($id){
         $author = author::find($id);
         $data = User::all();
@@ -148,11 +164,12 @@ class AuthorController extends Controller
         $data = User::all();
         $author = author::find($id);
         $author->authorName= $request->authorName;
-        $author->bookName= $request->bookName;
         $author->email= $request->email;
         $author->phoneNo= $request->phoneNo;
+        $author -> haveComplete = true;
         $author->save();
         $author= author::all();
-        return view('Book.AuthorList', compact('data' , 'author'));
+        $book = Library::all();
+        return view('Book.AuthorList', compact('data' , 'author', 'book'));
     }
 }

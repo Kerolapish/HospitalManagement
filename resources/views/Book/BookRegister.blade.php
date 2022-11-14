@@ -14,7 +14,7 @@
     <!-- IonIcons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="\dist\css\adminlte.min.css">
+    <link rel="stylesheet" href="\dist\css\adminlte.min.css">   
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -39,7 +39,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\BookRegister">Register Book</a></li>
+                                <li class="breadcrumb-item"><a href="\Book/BookRegister">Register Book</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -48,7 +48,7 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div class="content">                                        
+            <div class="content">
                 @include('flash-message')
                 <div class="container-fluid">
                     <div class="card card-secondary">
@@ -60,7 +60,7 @@
                         <form action="{{ url('/Book/uploadBook') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
-                                <div class="form-group">
+                                <div class="form-group"> 
                                     <div class="row">
                                         <div class="col-md-7">
                                             <span style="color:red">
@@ -84,7 +84,14 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">AUTHOR</label>
                                                 <input type="text" class="form-control" name="author"
-                                                    placeholder="enter book author">
+                                                    placeholder="enter or select book author" list="listAuthor">
+                                                <datalist id="listAuthor">
+                                                    @if ($listAuthor->count() != 0)
+                                                        @foreach ($listAuthor as $list)
+                                                            <option>{{$list -> authorName}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +130,7 @@
                                                 @enderror
                                             </span><br>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Book ID</label>
+                                                <label for="exampleInputEmail1">Book ISBN</label>
                                                 <input type="text" class="form-control" name="ISBN"
                                                     placeholder="enter book ID">
                                             </div>
@@ -159,17 +166,17 @@
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
-    <script src="\plugins\jquery\jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE -->
-    <script src="\dist\js\adminlte.js"></script>
+        <script src="\plugins\jquery\jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE -->
+        <script src="\dist\js\adminlte.js"></script>
 
-    <!-- OPTIONAL SCRIPTS -->
-    <script src="\plugins\chart.js\Chart.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="\dist\js\pages\dashboard3.js"></script>
+        <!-- OPTIONAL SCRIPTS -->
+        <script src="\plugins\chart.js\Chart.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="\dist\js\pages\dashboard3.js"></script>
 </body>
 
 </html>

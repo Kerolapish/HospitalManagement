@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->string('ISBN')->nullable();
             $table->string('Availability') -> default('Available');
-            $table->string('Role') -> default('Author');
             $table->timestamps();
         });
     }
