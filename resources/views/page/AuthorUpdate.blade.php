@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebarBook')
+        @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -38,7 +38,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\#">Update Member</a></li>
+                                <li class="breadcrumb-item"><a href="\#">Update Author</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,9 +51,9 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Member Update Registration Form</h3>
+                            <h3 class="card-title">Author Update Registration Form</h3>
                         </div>
-                        <form action="{{ url('Book/AuthorUpdate' , $author->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('AuthorUpdateDetails' , $author->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <!-- /.card-header -->
                             <div class="card-body">

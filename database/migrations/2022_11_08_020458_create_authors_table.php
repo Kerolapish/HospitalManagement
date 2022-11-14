@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('authorName');
-            $table->string('bookName');
-            $table->string('email');
-            $table->string('phoneNo');
+            $table->string('email')->nullable();
+            $table->string('phoneNo')->nullable();
+            $table ->boolean('haveComplete') -> default(false);
             $table->timestamps();
         });
     }

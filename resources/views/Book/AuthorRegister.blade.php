@@ -37,8 +37,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="/issues">Register Issues</a></li>
+                                <li class="breadcrumb-item"><a href="\dashboard">Book Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/Book/registerAuthor">Register New Author</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -63,26 +63,18 @@
                                     @endforeach
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-                                                <select class="custom-select rounded-0" id="name" name="authorName">
-                                                    <option  selected="true" disabled>Select author name</option>
-                                                    @foreach ($member as $data) 
-                                                    <option> {{$data -> author}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="name">Book Name</label>
-                                                <select class="custom-select rounded-0" id="bookName" name="bookName">
-                                                    <option  selected="true" disabled>Select book title</option>
-                                                    @foreach ($book as $data) 
-                                                    <option> {{$data -> name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control" name="author"
+                                                    placeholder="enter or select unregistered author" list="listAuthor">
+                                                <datalist id="listAuthor">
+                                                    @if ($listAuthor->count() != 0)
+                                                        @foreach ($listAuthor as $list)
+                                                            <option>{{$list -> authorName}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>

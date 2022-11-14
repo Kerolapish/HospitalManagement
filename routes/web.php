@@ -30,8 +30,6 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-
-
 //////////////////////////////////
 //Super Admin Route
 //Profile Page
@@ -60,8 +58,16 @@ Route::get('/issues' , [HomeController::class , "registerissues"]) -> name("regi
 Route::post('/issueReturned/{id}' , [HomeController::class , 'issueReturned']) -> name('issueReturned');
 //Lost Book
 Route::get('/LostBook' , [HomeController::class , 'LostBook']) -> name('LostBook');
-Route::post('/declareLost/{id}' , [HomeController::class , 'declareLost']);
+Route::post('/Lost/{id}' , [HomeController::class , 'declareLost']);
 Route::get('/issueHistory' , [HomeController::class , 'issueHistory'])->name('/issueHistory');
+//Author
+Route::get('/registerAuthor' , [HomeController::class , 'registerAuthorSuperAdmin']) -> name('registerAuthorSuperAdmin');
+Route::post('/registerAuthorNew' , [HomeController::class , 'registerAuthorNew']) -> name('registerAuthorNew');
+Route::get('/authorList' , [HomeController::class , 'authorList']) -> name('authorList');
+Route::post('/deleteAuthor/{id}' , [HomeController::class , 'deleteAuthor']) -> name('deleteAuthor');
+Route::get('/authorUpdate/{id}' , [HomeController::class , 'authorUpdate']) -> name('authorUpdate');
+Route::post('/AuthorUpdateDetails/{id}' , [HomeController::class , 'AuthorUpdateDetails']) -> name('AuthorUpdateDetails');
+
 //User Management
 Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');
 Route::get('/userManagement' , [HomeController::class , 'userManagement']) -> name('userManagement');

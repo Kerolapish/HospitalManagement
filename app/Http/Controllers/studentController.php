@@ -39,7 +39,7 @@ class studentController extends Controller
     }
 
     //function to save all remaining details of user
-    public function updateInfoStudent(Request $request ,$id){
+    public function updateInfoStudent(Request $request , $id){
         $details = User::find($id);
         $details -> IcNum = $request -> icNum;
         $details -> PhoneNum = $request -> phoneNum;

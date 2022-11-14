@@ -102,10 +102,11 @@
                                 <div class="card-header card-danger card-outline">
                                     Complete Registration
                                 </div>
-                                <form action="{{ url('/User/updateInfoStudent', Auth::User()->id) }}"method="POST" enctype="multipart/form-data">
+                                <form action="{{ url('/User/updateInfoStudent', Auth::User()->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="card-body">
                                         <div class="form-group">Plese complete your registration to access student panel<br><br>
-                                                @csrf
+                                                
                                                 <div class="form-group">
                                                     <label for="icNum">IC No.</label>
                                                     <input type="text" class="form-control" name="icNum"
@@ -130,7 +131,7 @@
                 <div class="card-header">
                     Profile Information
                 </div>
-                <form action="{{ url('updateInfo', $data->first()) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('updateInfo', Auth::User()->id) }}" method="POST" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group">
                             Update your account's profile information and email address <br><br>
@@ -142,7 +143,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Email">Email address</label>
-                                <input type="email" class="form-control" name="email"
+                                <input type="email" class="form-control" name="email" disabled
                                     value="{{ Auth::user()->email }}">
                             </div>
                         </div>

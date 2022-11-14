@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebarBook')
+        @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,12 +33,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Update Author Information</h1>
+                            <h1 class="m-0">Register Author</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\#">Update Member</a></li>
+                                <li class="breadcrumb-item"><a href="/registerAuthor">Register Author</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,11 +51,11 @@
                 <div class="container-fluid">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Library Member Update Registration Form</h3>
+                            <h3 class="card-title">Register Author</h3>
                         </div>
-                        <form action="{{ url('Book/AuthorUpdate' , $author->id) }}" method="POST" enctype="multipart/form-data">
+                        <!-- /.card-header -->
+                        <form action="{{ url('registerAuthorNew') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
                                     @foreach ($errors->all() as $error)
@@ -65,54 +65,63 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">Author Name</label>
-
-                                                <input type="text" class="form-control" name="authorName"
-                                                    placeholder="Enter member's name" value="{{$author->authorName}}">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" name="author"
+                                                    placeholder="enter or select unregistered author" list="listAuthor">
+                                                <datalist id="listAuthor">
+                                                    @if ($listAuthor->count() != 0)
+                                                        @foreach ($listAuthor as $list)
+                                                            <option>{{$list -> authorName}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                         <div class="form-group">
-                                                <label for="Email">Author Email</label>
-                                                <input type="text" class="form-control" name="email"
-                                                    placeholder="Enter member's IC number" value="{{$author->email}}">
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    placeholder="enter email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="phoneNum">Phone No.</label>
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">Number Phone</label>
                                                 <input type="text" class="form-control" name="phoneNo"
-                                                    placeholder="Enter member's phone number" value="{{$author->phoneNo}}">
+                                                    placeholder="enter phone no">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-dark float-right">UPDATE</button>
+                                <button type="submit" class="btn btn-dark float-right">REGISTER</button>
                             </div>
                         </form>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
             </div>
-            <!-- /.content -->
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.content-wrapper -->
+        
+        <!-- /.content -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        @include('layouts.footer')
-    </div>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    @include('layouts.footer')
+</div>
+
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->

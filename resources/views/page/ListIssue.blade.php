@@ -81,7 +81,7 @@
                                                     <input class="btn btn-info btn-xs" type="submit" value="Returned ">
                                                 </form>
 
-                                                <form action="{{ url('declareLost', $bookIssued->id) }}" method="POST"
+                                                <form action="{{ url('Lost', $bookIssued->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-danger btn-xs" type="submit" value="Declare Lost">

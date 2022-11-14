@@ -38,7 +38,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="\dashboard">Student Panel</a></li>
+                        <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('/issueHistory', Auth::user() -> id) }}">Issued History</a></li>
                     </ol>
                 </div><!-- /.col -->

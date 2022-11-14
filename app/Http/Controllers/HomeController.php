@@ -40,7 +40,7 @@ class HomeController extends Controller
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
             
-            return view('AdminPanel' , compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
+            return view('AdminPanel' , compact('data' , 'book' , 'issuedCount', 'bookCount',
             "memberCount", "lostBook"));
              
         } else if(Auth::user()-> role == "AdminStudent"){
@@ -60,13 +60,10 @@ class HomeController extends Controller
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
-            $memberCount = totalMembers::count();
-            $member = totalMembers::all();
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();
-            return view('Book.BookPanel', compact('data' , 'book' , 'member' , 'issuedCount', 'bookCount',
-            "memberCount", "lostBook"));
+            return view('Book.BookPanel', compact('data' , 'book'  , 'issuedCount', 'bookCount', "lostBook"));
 
         } else if(Auth::user()-> role == "Student"){
 
@@ -141,7 +138,6 @@ class HomeController extends Controller
     public function updateInfo(Request $request, $id){
         $data = user::find($id);
         $data -> name = $request -> name;
-        $data -> email = $request -> email;
         $data -> save();
         return back()->with('success','Record successfully updated!');
     }
@@ -158,7 +154,8 @@ class HomeController extends Controller
     //go to register book page
     public function registerBook(){
         $data = User::all();
-        return view('page.register' , compact('data'));
+        $listAuthor = Author::all();
+        return view('page.register' , compact('data' ,'listAuthor'));
     }
 
     //Create book record DB
@@ -167,24 +164,32 @@ class HomeController extends Controller
             'name'=>'required',
             'author'=>'required',
             'year'=>'required|max:4',
-            'price'=>'required'
-
+            'price'=>'required',
+            'ISBN'=>'required|max:20'
         ],
         [
             'name.required'=>'Fill the Book Name',
             'author.required'=>'Fill the Author',
             'year.required'=>'Fill the Publishing Year',
-            'price.required'=>'Fill the Book Price Number'
+            'price.required'=>'Fill the Book Price Number',
+            'ISBN.required'=>'Fill the Book ISBN'
         ]
         );
         $library = new library();
         $data = user::all();
+        if (Author::where('authorName' , $request->author ) -> get() -> count() == 0){
+            $Author = new Author();
+            $Author -> authorName = $request -> author;
+            $Author -> save();
+        }
         $library->name=$request->name;
         $library->author=$request->author;
         $library->year=$request->year;
         $library->price=$request->price;
+        $library->ISBN=$request->ISBN;
         $library->save();
-        return view('Page.register' , compact('data')) -> with('successBook', 'has been inserted');
+        $listAuthor = Author::all();
+        return view('Page.register' , compact('data' , 'listAuthor'));
     }
 
     //function for delete book
@@ -192,7 +197,7 @@ class HomeController extends Controller
         $book=Library::find($id);
         $book->delete();
 
-        return redirect('/BookPanel');
+        return redirect('/totalBook');
     }
     
     //function to go to update book Page
@@ -217,7 +222,7 @@ class HomeController extends Controller
         $issuedCount = bookIssue::count();
         $lostbookCount =  Library::where('Availability' , 'Lost' ) -> get();
         $lostBook = $lostbookCount -> count();
-        return view('AdminPanel', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount', 'lostBook'));
+        return view('page.totalBook', compact('data' , 'book' , 'bookCount' , 'memberCount' , 'issuedCount', 'lostBook'));
     }
 
     
@@ -307,7 +312,9 @@ class HomeController extends Controller
         $memberLost -> save();
         $bookLost -> save();
         $issued->delete();
-        return redirect('/LostBook');
+        $data = user::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('Page.LostBook' , compact('data' , 'lost'));
     }
 
     //go to Issued Book page
@@ -328,14 +335,14 @@ class HomeController extends Controller
     //function to register new issue
     public function registerNewIssue(Request $request){
 
-       
-
         $issue = new bookIssue();
         $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
         $today = new DateTime("now");
-        $returnDate = $today->modify("+7 days");
         $today = $today -> format('y-m-d');
+        $returnDate = new DateTime('now');
+        $returnDate = $returnDate->modify("+7 days");
+        $returnDate = $returnDate -> format('y-m-d');
         
         $issue -> name = $request -> issuedName;
         $issue -> bookName = $request -> issuedBook;
@@ -405,6 +412,85 @@ class HomeController extends Controller
         $data = user::all();
         $issueList = IssuedHistory::all();
         return view('page.IssuedHistory' , compact('data' , 'issueList'));
+    }
+
+    ////////////////////////////////
+    //Author Function
+    ///////////////////////////////
+
+    //function to go to register Author Page
+    public function registerAuthorSuperAdmin(){
+        $data = user::all();
+        $listAuthor = Author::where('haveComplete' , 0) ->get();
+        return view('page.AuthorReg' , compact('data' , 'listAuthor'));
+    }
+
+    //function to register new author
+    public function registerAuthorNew(Request $request){
+        if (Author::where('authorName' , $request->author) -> get() -> count() == 0){
+
+            //register for non-existing author
+            $Author = new Author();
+            $Author -> authorName = $request -> author;
+            $Author -> email = $request -> email;
+            $Author -> phoneNo = $request -> phoneNo;
+            $Author -> haveComplete = true;
+
+        } else {
+            
+            //register for existing author
+            $Author = Author::where('authorName' , $request->author) -> get() -> first();
+            $Author -> authorName = $request -> author;
+            $Author -> email = $request -> email;
+            $Author -> phoneNo = $request -> phoneNo;
+            $Author -> haveComplete = true;
+        }
+        
+        $Author -> save();
+        $data = User::all();
+        $book = Library::all();
+        $listAuthor = Author::where('haveComplete' , 0) ->get();
+        return view('page.AuthorReg' , compact('data'  , 'listAuthor', "book"));
+    }
+
+    //function to go to author list
+    public function authorList(){
+        $data = user::all();
+        $author = author::all();
+        $book = Library::all();
+        return view('Page.AuthorList' , compact('data' , 'author' , 'book'));
+    }
+
+    //function to delete author by id
+    public function deleteAuthor($id){
+        $authorDel=author::find($id);
+        $authorDel->delete();
+        $data = user::all();
+        $author = author::all();
+        $book = Library::all();
+        return view('Page.AuthorList' , compact('data' , 'author' , 'book'));
+    }
+
+    //function to go to update author page
+    public function authorUpdate($id){
+        $author = author::find($id);
+        $data = User::all();
+        $book = Library::all();
+        return view('Page.AuthorUpdate', compact('data', 'author', 'book'));
+    }
+
+     //function to update author  
+     public function AuthorUpdateDetails(Request $request,$id){
+        $data = User::all();
+        $author = author::find($id);
+        $author->authorName= $request->authorName;
+        $author->email= $request->email;
+        $author->phoneNo= $request->phoneNo;
+        $author -> haveComplete = true;
+        $author->save();
+        $author= author::all();
+        $book = Library::all();
+        return view('Page.AuthorList', compact('data' , 'author', 'book'));
     }
 }
 

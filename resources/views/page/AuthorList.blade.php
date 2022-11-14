@@ -24,7 +24,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('layouts.sidebarBook')
+        @include('layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -39,7 +39,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="\dashboard">Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\Book/AuthorList">Issued List</a></li>
+                                <li class="breadcrumb-item"><a href="/authorList">Author List</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -52,7 +52,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Issued Book</h3>
+                            <h3 class="card-title">Author List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -85,14 +85,14 @@
                                                 {{$bookWritten}}
                                             </td>
                                             <td>
-                                            <form action="{{ url('/Book/deleteAuthor', $author->id) }}" method="POST"
+                                            <form action="{{ url('deleteAuthor', $author->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-danger btn-xs" type="submit" value="Delete">
                                                 </form>
 
                                                 <a class="btn btn-primary btn-xs"
-                                                    href="{{ url('Book/AuthorUpdateView', $author->id) }}">Update</a>
+                                                    href="{{ url('authorUpdate', $author->id) }}">Update</a>
                                             </td>
                                         </tr>
                                         

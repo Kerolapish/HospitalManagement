@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="\plugins\fontawesome-free\css\all.min.css">
+  <script src="https://kit.fontawesome.com/48b4d892a8.js" crossorigin="anonymous"></script>
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -89,7 +90,7 @@
                     <div class="card-header">
                         Profile Information
                     </div>
-                    <form action="{{ url('updateInfo' , $data->first())}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('updateInfo' ,Auth::user() -> id)}}" method="POST" enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="form-group">
                                 Update your account's profile information and email address <br><br>
@@ -100,7 +101,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Email">Email address</label>
-                                    <input type="email" class="form-control" name="email" value="{{Auth::user() -> email}}">
+                                    <input type="email" class="form-control" name="email" value="{{Auth::user() -> email}}" disabled>
                                 </div>
                             </div> 
                         </div>
