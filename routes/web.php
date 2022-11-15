@@ -51,6 +51,7 @@ Route::post('/deleteMembers/{id}' , [HomeController::class , 'deleteMembers']);
 Route::post('/updateMembersPage/{id}' , [HomeController::class , 'updateMembersPage']);
 Route::post('/updateMember/{id}',[HomeController::class,'updateMembership']);
 Route::post('/revokeMember/{id}' , [HomeController::class , 'revokeMember']) -> name('revokeMember');
+Route::post('/searchByUUID' , [HomeController::class , 'searchByUUID']) -> name('searchByUUID');
 //Issue
 Route::post('/registerNewIssue' , [HomeController::class, 'registerNewIssue']) -> name('registerNewIssue');
 Route::get('/Issue' , [HomeController::class , "Issue"]) -> name("Issue");
