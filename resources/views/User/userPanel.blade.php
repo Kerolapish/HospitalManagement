@@ -64,15 +64,6 @@
             </div>
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-success"><i class="fa-solid fa-receipt"></i></span>
-                    <div class="info-box-content">
-                    <span class="info-box-text">Current Book Issued</span>
-                    <span class="info-box-number">{{$issuedCount}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box">
                     <span class="info-box-icon bg-warning"><i class="fa-solid fa-book"></i></span>
                     <div class="info-box-content">
                     <span class="info-box-text">Book Need To Be Return </span>
@@ -80,6 +71,18 @@
                     </div>
                 </div>
             </div>
+            @if(Auth::user() -> StudentUUID != null)
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa-solid fa-receipt"></i></span>
+                    <div class="info-box-content">
+                    <span class="info-box-text">Your Student ID</span>
+                    <span class="info-box-number">{{Auth::user() -> StudentUUID}}</span>
+                    </div>
+                </div>
+            </div>
+            @endif
+            
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-primary"><i class="fa-regular fa-calendar-days"></i></span>

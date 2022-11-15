@@ -67,6 +67,7 @@ Route::get('/authorList' , [HomeController::class , 'authorList']) -> name('auth
 Route::post('/deleteAuthor/{id}' , [HomeController::class , 'deleteAuthor']) -> name('deleteAuthor');
 Route::get('/authorUpdate/{id}' , [HomeController::class , 'authorUpdate']) -> name('authorUpdate');
 Route::post('/AuthorUpdateDetails/{id}' , [HomeController::class , 'AuthorUpdateDetails']) -> name('AuthorUpdateDetails');
+Route::get('ViewBook/{id}' , [HomeController::class , 'ViewBook']) ->name('ViewBook');
 
 //User Management
 Route::post('/recoverBook/{id}' , [HomeController::class , 'recoverBook'])-> name('recoverBook');

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use LDAP\Result;
 use DateTime;
 use App\Models\IssuedHistory;
+use App\Helpers\Helper;
 
 class studentController extends Controller
 {
@@ -43,6 +44,7 @@ class studentController extends Controller
         $details = User::find($id);
         $details -> IcNum = $request -> icNum;
         $details -> PhoneNum = $request -> phoneNum;
+        $details -> StudentUUID = Helper::IDGenerator(new User, 'StudentUUID' , 4 , 'STDT');
         $time = new DateTime('NOW');
         $time->modify("+180 days");
         $time = $time -> format('Y-m-d');
