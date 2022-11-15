@@ -70,7 +70,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/totalMember" class="nav-link {{ (request()->is('totalMember')) ? 'active' : '' }} {{ (request()->is('updateMember/*')) ? 'active' : '' }}">
+                        <a href="/totalMember" class="nav-link {{ (request()->is('totalMember')) ? 'active' : '' }} {{ (request()->is('updateMember/*')) ? 'active' : '' }} {{ (request()->is('searchByUUID')) ? 'active' : '' }}">
                             <i class="far fa-id-card nav-icon"></i>
                             <p>Membership List</p>
                         </a>

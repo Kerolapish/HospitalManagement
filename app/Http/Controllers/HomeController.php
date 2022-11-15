@@ -297,6 +297,12 @@ class HomeController extends Controller
         return view('page.totalMember', compact('data' , 'member'));
     }
 
+    //function to search member using uuid 
+    public function searchByUUID(Request $request){
+        $member = User::where('StudentUUID' , 'like' , '%'.$request -> UUID.'%')-> get();
+        $data = User::all(); 
+        return view('page.totalMember' , compact('member'  , 'data'));
+    }
     //////////////////////////////////
 
     // ISSUES FUNCTION

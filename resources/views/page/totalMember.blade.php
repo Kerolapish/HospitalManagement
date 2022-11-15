@@ -54,16 +54,13 @@
                         <div class="card-header">
                             <h3 class="card-title">Members data</h3>
                             <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 250px;">
-                                    <form action="#">
-                                        <input type="text" name="table_search" class="form-control float-right"
-                                        placeholder="Search by UUID">
-                                    </form>
-                                    
+                                <div class="input-group input-group-sm" style="width: 200px;">
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
+                                        <form action="{{url('searchByUUID')}}" method="POST">
+                                            @csrf
+                                            <input type="text" name="UUID" class="form-control float-right"
+                                                placeholder="Search by UUID">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
