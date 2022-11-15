@@ -70,22 +70,22 @@
                                     @foreach ($author as $author)
                                         <tr>
                                             <td>{{ $author->authorName }}</td>
-                                            @if($author -> haveComplete == false)
-                                                <td colspan="2" style="text-align: center">Author not registered yet</td>
+                                            @if ($author->haveComplete == false)
+                                                <td colspan="2" style="text-align: center">Author not registered yet
+                                                </td>
                                             @else
-                                                
                                                 <td>{{ $author->email }}</td>
                                                 <td>{{ $author->phoneNo }}</td>
                                             @endif
                                             <td style="text-align: center">
                                                 @php
-                                                    $bookWritten = $book -> where('author' , $author->authorName);
-                                                    $bookWritten    = $bookWritten -> count();
+                                                    $bookWritten = $book->where('author', $author->authorName);
+                                                    $bookWritten = $bookWritten->count();
                                                 @endphp
-                                                {{$bookWritten}}
+                                                {{ $bookWritten }}
                                             </td>
                                             <td>
-                                            <form action="{{ url('deleteAuthor', $author->id) }}" method="POST"
+                                                <form action="{{ url('deleteAuthor', $author->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-danger btn-xs" type="submit" value="Delete">
@@ -93,18 +93,20 @@
 
                                                 <a class="btn btn-primary btn-xs"
                                                     href="{{ url('authorUpdate', $author->id) }}">Update</a>
+
+                                                <a class="btn btn-info btn-xs"
+                                                    href="{{ url('ViewBook', $author->id) }}">View Book</a>
                                             </td>
                                         </tr>
-                                        
-                                        
                                     @endforeach
-                                    @if ($author -> count() == 0)
+                                    @if ($author->count() == 0)
                                         <tr>
                                             <td colspan="5" style="text-align: center">No record in database</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <td colspan="5" style="text-align: center">Showing {{$author -> count()}} record(s) from database</td>
+                                            <td colspan="5" style="text-align: center">Showing
+                                                {{ $author->count() }} record(s) from database</td>
                                         </tr>
                                     @endif
                                     </tfoot>

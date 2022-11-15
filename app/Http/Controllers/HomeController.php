@@ -492,5 +492,14 @@ class HomeController extends Controller
         $book = Library::all();
         return view('Page.AuthorList', compact('data' , 'author', 'book'));
     }
+
+    //function to go to view author details by id
+    public function ViewBook($id){
+
+        $author = author::find($id);
+        $book = Library::where('author' , $author -> name) -> get();
+        $data = User::all();
+        return view('Page.AuthorDetails' , compact('data' , 'book' , 'author'));
+    }
 }
 
