@@ -48,7 +48,7 @@ class HomeController extends Controller
             $data = User::all();
             $book = Library::all();
             $bookCount = Library::count();
-            $memberCount = User::where('role' , 'AdminStudent') -> get() -> count();
+            $memberCount = User::where('role' , 'Student') -> get() -> count();
             $issuedCount = bookIssue::count();
             $lostBook = Library::where('Availability' , 'Lost') -> get();
             $lostBook = $lostBook -> count();

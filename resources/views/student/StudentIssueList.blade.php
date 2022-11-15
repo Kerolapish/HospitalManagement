@@ -38,8 +38,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Student Admin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\Issue">Issued List</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Student Admin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/student/StudentIssueList">Issued List</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -75,13 +75,13 @@
                                             <td>{{ $bookIssued->dateReturn }}</td>
 
                                             <td>
-                                                <form action="{{ url('issueReturned', $bookIssued->id) }}" method="POST"
+                                                <form action="{{ url('/student/StudentIssueReturned', $bookIssued->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-info btn-xs" type="submit" value="Returned ">
                                                 </form>
 
-                                                <form action="{{ url('declareLost', $bookIssued->id) }}" method="POST"
+                                                <form action="{{ url('student/StudentDeclareLost', $bookIssued->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-danger btn-xs" type="submit" value="Declare Lost">

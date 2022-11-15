@@ -29,7 +29,7 @@
                     
                     <li class="nav-item">
                             <li class="nav-item">
-                                <a href="/StudentMember" class="nav-link">
+                                <a href="/student/StudentMember" class="nav-link {{ (request()->is('student/StudentMember')) ? 'active' : '' }} {{ (request()->is('student/StudentUpdateView/*')) ? 'active' : '' }} {{ (request()->is('student/StudentrevokeMember/*')) ? 'active' : '' }} {{ (request()->is('student/StudentDelete/*')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Membership List</p>
                                 </a>
@@ -37,21 +37,27 @@
                     </li>
                     <li class="nav-item">
                             <li class="nav-item">
-                                <a href="/StudentRegIssue" class="nav-link">
+                                <a href="/student/StudentRegIssue" class="nav-link {{ (request()->is('student/StudentRegIssue')) ? 'active' : '' }} {{ (request()->is('student/UploadNewIssue')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Register Issues</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/StudentIssueList" class="nav-link">
+                                <a href="/student/StudentIssueList" class="nav-link {{ (request()->is('student/StudentIssueList')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Issued List</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/StudentLost" class="nav-link">
+                                <a href="/student/StudentLost" class="nav-link {{ (request()->is('student/StudentLost')) ? 'active' : '' }} {{ (request()->is('student/StudentDeclareLost/*')) ? 'active' : '' }} {{ (request()->is('student/StudentRecoverBook/*')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Lost Book</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/student/StudentIssuedHistory" class="nav-link {{ (request()->is('student/StudentIssuedHistory')) ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Issues History</p>
                                 </a>
                             </li>
                         </ul>

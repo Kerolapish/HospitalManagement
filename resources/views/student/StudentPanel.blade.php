@@ -33,11 +33,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Student Panel</h1>
+                            <h1 class="m-0">Student Admin Panel</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Student Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Student Admin Panel</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -51,7 +51,7 @@
                                 <h3>{{ $memberCount }}</h3>
                                 <p>Membership List</p>
                             </div>
-                            <a href="/StudentMember" class="small-box-footer">More info <i
+                            <a href="/student/StudentMember" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
 
                                 <p>Register Issue</p>
                             </div>
-                            <a href="StudentRegIssue" class="small-box-footer">More info <i
+                            <a href="/student/StudentRegIssue" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
 
                                 <p>Issues List</p>
                             </div>
-                            <a href="StudentIssueList" class="small-box-footer">More info <i
+                            <a href="/student/StudentIssueList" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
 
                                 <p>Lost Book</p>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="/student/StudentLost" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
