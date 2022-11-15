@@ -53,37 +53,10 @@
 
                         <p>Total Books</p>
                     </div>
-                    <a href="/BookAdmin/BookTotal" class="small-box-footer">More info <i
+                    <a href="/Book/BookTotal" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3>{{$issuedCount}}</h3>
-
-                        <p>Issues</p>
-                    </div>
-                    <a href="/Issue" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>{{$lostBook}}</h3>
-
-                        <p>Lost Book</p>
-                    </div>
-                    <a href="\LostBook" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
         </div>
     </div>
     <!-- /.content-header -->
@@ -105,7 +78,6 @@
                                     <th>Year</th>
                                     <th>Price</th>
                                     <th>ISBN</th>
-                                    <th>Availability</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +88,6 @@
                                         <td>{{ $Library->year }}</td>
                                         <td>RM {{ $Library->price }}</td>
                                         <td>{{ $Library->ISBN }}</td>
-                                        <td>{{ $Library -> Availability}}</td>
                                     </tr>
                                 @endforeach
                                 @if ($book -> count() == 0)

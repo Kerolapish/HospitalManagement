@@ -124,6 +124,7 @@ Route::post('/Book/deleteBook/{id}' , [AuthorController::class , 'deleteBook']);
 Route::post('/Book/deleteAuthor/{id}' , [AuthorController::class , 'deleteAuthor']);
 Route::get('/Book/AuthorUpdateView/{id}',[AuthorController::class,'AuthorUpdateView']) -> name('AuthorUpdateView');
 Route::post('/Book/AuthorUpdate/{id}',[AuthorController::class,'AuthorUpdate']) -> name('AuthorUpdate');
+Route::get('/Book/BookProfile/{id}' , [AuthorController::class , "BookProfile"]) -> name('BookProfile');
 
 
 Route::middleware([

@@ -17,6 +17,12 @@ use DateTime;
 
 class AuthorController extends Controller
 {
+    //go to profile page
+    public function BookProfile()
+    {
+        $data = User::all();
+        return view('Book.BookProfile' , compact('data'));
+    }
 
     //go to register book page(Admin Book)
     public function BookRegister(){
