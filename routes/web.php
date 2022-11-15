@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Library;
 use App\Models\totalMembers;
 use App\Models\bookIssue;
+use App\Models\IssuedHistory;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,32 +85,25 @@ Route::get('/User/BookIssued/{id}' , [studentController::class , "userBookIssued
 Route::get('/User/History/{id}' , [studentController::class , "userHistory"]) -> name('userHistory');
 Route::post('/User/updateInfoStudent/{id}' , [studentController::class , "updateInfoStudent"]) -> name('updateInfoStudent');
 
-
-//////////////////////////////////
-
-//Student Admin Route
-//Membership List
-Route::get('/StudentMember' , [HomeController::class , 'StudMember']) -> name("StudentMember");
-
-//Register Issue, Issued List, Lost Book
-Route::get('/StudentRegIssue' , [HomeController::class , "StudentRegIssue"]) -> name("StudRegIssue");
-Route::get('/StudentIssueList' , [HomeController::class , "StudentIssueList"]) -> name("StudentIssueList");
-Route::get('/StudentLost' , [HomeController::class , 'StudentLostBook']) -> name("StudentLostBook");
-Route::post('/StudentRecoverBook/{id}' , [HomeController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
-
 //////////////////////////////////
 //Student Admin Route
 //Membership List
-Route::get('/StudentMember' , [AdminStudentController::class , 'StudMember']) -> name("StudentMember");
+Route::get('/student/StudentMember' , [AdminStudentController::class , 'StudMember']) -> name("StudentMember");
+Route::post('/student/StudentUpdateView/{id}',[AdminStudentController::class,'StudentUpdateView']);
+Route::post('/student/StudentUpdate/{id}',[AdminStudentController::class,'StudentUpdateMembership']);
+Route::post('/student/StudentrevokeMember/{id}' , [AdminStudentController::class , 'StudentrevokeMember']) -> name('StudentrevokeMember');
+Route::post('/student/StudentDelete/{id}' , [AdminStudentController::class , 'StudentDelete']);
+Route::get('/student/StudentSearch' , [AdminStudentController::class , 'StudentSearch']);
 
 //Register Issue, Issued List, Lost Book
-Route::get('/StudentRegIssue' , [AdminStudentController::class , "StudentRegIssue"]) -> name("StudRegIssue");
-Route::post('/UploadNewIssue' , [AdminStudentController::class, 'UploadNewIssue']) -> name('UploadNewIssue');
-Route::get('/StudentIssueList' , [AdminStudentController::class , "StudentIssueList"]) -> name("StudentIssueList");
-Route::get('/StudentLost' , [AdminStudentController::class , 'StudentLostBook']) -> name("StudentLostBook");
-Route::post('/StudentRecoverBook/{id}' , [AdminStudentController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
-Route::post('/declareLost/{id}' , [AdminStudentController::class , 'declareLost']);
-
+Route::get('/student/StudentRegIssue' , [AdminStudentController::class , "StudentRegIssue"]) -> name("StudRegIssue");
+Route::post('/student/UploadNewIssue' , [AdminStudentController::class, 'UploadNewIssue']) -> name('UploadNewIssue');
+Route::get('/student/StudentIssueList' , [AdminStudentController::class , "StudentIssueList"]) -> name("StudentIssueList");
+Route::get('/student/StudentLost' , [AdminStudentController::class , 'StudentLostBook']) -> name("StudentLostBook");
+Route::post('/student/StudentRecoverBook/{id}' , [AdminStudentController::class , 'StudentRecoverBook'])-> name('StudentRecoverBook');
+Route::post('/student/StudentIssueReturned/{id}' , [AdminStudentController::class , 'StudentIssueReturned']) -> name('StudentIssueReturned');
+Route::post('/student/StudentDeclareLost/{id}' , [AdminStudentController::class , 'StudentDeclareLost']);
+Route::get('/student/StudentIssuedHistory' , [AdminStudentController::class , 'StudentIssuedHistory'])->name('StudentIssuedHistory');
 
 //Book Admin
 Route::post('/Book/uploadBook',[AuthorController::class,'uploadBook']) -> name("uploadBook");
@@ -125,6 +119,7 @@ Route::post('/Book/deleteAuthor/{id}' , [AuthorController::class , 'deleteAuthor
 Route::get('/Book/AuthorUpdateView/{id}',[AuthorController::class,'AuthorUpdateView']) -> name('AuthorUpdateView');
 Route::post('/Book/AuthorUpdate/{id}',[AuthorController::class,'AuthorUpdate']) -> name('AuthorUpdate');
 Route::get('/Book/BookProfile/{id}' , [AuthorController::class , "BookProfile"]) -> name('BookProfile');
+
 
 
 Route::middleware([

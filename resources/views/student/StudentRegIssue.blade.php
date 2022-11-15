@@ -37,8 +37,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">StudentAdmin Panel</a></li>
-                                <li class="breadcrumb-item"><a href="/issues">Register Issues</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard">StudentAdmin Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/student/StudentRegIssue">Register Issues</a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -54,7 +54,7 @@
                             <h3 class="card-title">Library Issue</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ url('UploadNewIssue') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('/student/UploadNewIssue') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -83,14 +83,6 @@
                                                     <option> {{$data -> name}}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="birthDate">Date Return</label>
-                                                <input type="date" class="form-control" name="returnDate">
                                             </div>
                                         </div>
                                     </div>

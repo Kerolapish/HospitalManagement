@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Library;
 use App\Models\totalMembers;
 use App\Models\bookIssue;
+use App\Models\IssuedHistory;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use DateTime;
@@ -19,16 +20,69 @@ class AdminStudentController extends Controller
         return view('student.StudentMember' , compact('member'  , 'data'));
     }
 
-    //function to go to update book Page
-    public function StudupdateBookView($id){
+    //function for delete members at student admin
+    public function StudentDelete($id){
+        $memberdel = User::find($id);
+        $memberdel->delete();
         $data = User::all();
-        $book = Library::find($id);
-        return view('student.UpdateBook', compact('data' , 'book'));
+        $member = user::where('role' , 'Student') -> get();
+        return view('student.StudentMember' , compact('member' , 'data'));
+    }
+
+    //Function to go to update member page at student admin
+    public function StudentUpdateView($id){
+        $data = User::all();
+        $member = User::find($id);
+        return view('student.StudentUpdate', compact('data' , 'member'));
+    }
+    
+    //function to revoke member blacklist at student Admin
+    public function StudentrevokeMember($id){
+        $revoke = User::find($id);
+        $revoke -> havePending = "clear";
+        $revoke -> save();
+        $data = User::all();
+        $member = User::where('role' , 'Student') -> get();
+        return view('student.StudentMember' , compact('data' , 'member'));
+    }
+
+    //function to update member  
+    public function StudentUpdateMembership(Request $request, $id){
+        $data = User::all();
+        $memberUpdate = User::find($id);
+        $date = new DateTime($memberUpdate->period);
+        
+        $memberUpdate->name= $request->name;
+        $memberUpdate->IcNum= $request->IcNum;
+        $memberUpdate->PhoneNum= $request->PhoneNum;
+
+        if($request -> Period == "6 Months"){
+            $date->modify('+6 month');
+        } else if ($request -> Period == "1 Year") {
+            $date->modify('+12 month');
+        } else if ($request -> Period == "2 Years"){
+            $date->modify('+24 month');
+        }
+        $date = $date->format('Y-m-d');  
+        $memberUpdate->Period= $date;
+        $memberUpdate->save();
+        $member = User::where('role' , 'Student') -> get();
+        return view('student.StudentMember', compact('data' , 'member'));
+    }
+
+    //function to search at student
+    public function StudentSearch(Request $request)
+    {
+        $search = $request->search;
+        $member = user::where('StudentUUID','like','%'.$search.'%') -> get();
+        $data = User::all();
+
+        return view('student.StudentMember',compact('data' , 'member'));
     }
 
     //go to register issues page at student Admin
     public function StudentRegIssue(){
-        $member = user::where('role' , 'Student') -> get();
+        $member = user::where('havePending' , 'clear') -> get();
         $book = Library::where('Availability' , 'Available') -> get();
         $data = User::all();
         return view('student.StudentRegIssue' , compact('data', 'member' , 'book'));
@@ -37,27 +91,26 @@ class AdminStudentController extends Controller
     //function to register new issue at Student Admin
     public function UploadNewIssue(Request $request){
         $issue = new bookIssue();
-        $memberIssued = user::where('name' , $request -> issuedName) -> first();
+        $memberIssued = User::where('name' , $request -> issuedName) -> first();
         $bookIssued = library::where('name' , $request -> issuedBook) -> first();
-
+        $today = new DateTime("now");
+        $today = $today -> format('y-m-d');
+        $returnDate = new DateTime('now');
+        $returnDate = $returnDate->modify("+7 days");
+        $returnDate = $returnDate -> format('y-m-d');
+        
         $issue -> name = $request -> issuedName;
         $issue -> bookName = $request -> issuedBook;
-        $today = new DateTime("now");
-        $dateReturn = $today->modify("+180 days");
-        $dateReturn = $dateReturn -> format('y-m-d');
-        $today = $today -> format('y-m-d');
-        
         $issue -> dateIssued = $today;
-        $issue -> dateReturn = $dateReturn;
-        $memberIssued -> havePending = "Pending";
+        $issue -> dateReturn = $returnDate;
         $bookIssued -> Availability = "Issued"; 
         
         $bookIssued -> save();
         $memberIssued -> save();
         $issue -> save();
         $data = User::all();
-        $member = user::all();
-        $book = Library::all();
+        $member = User::where('havePending' , 'clear') -> get();
+        $book = Library::where('Availability' , 'Available') -> get();
         return view('student.StudentRegIssue' , compact('data' , 'bookIssued' , 'member' , 'book'));
     }
 
@@ -76,11 +129,11 @@ class AdminStudentController extends Controller
         return view('student.StudentLost' , compact('data' , 'lost'));
     }
 
-    //function for declare lost book
-    public function declareLost($id){
+    //function for declare lost book at admin student
+    public function StudentdeclareLost($id){
         $issued = BookIssue::find($id);
         $bookLost = Library::where('name' , $issued -> bookName ) -> first();
-        $memberLost = user::where('name' , $issued -> name) -> first();
+        $memberLost = User::where('name' , $issued -> name) -> first();
 
         $bookLost -> Availability = "Lost";
         $memberLost -> havePending = "Blacklisted";
@@ -88,16 +141,53 @@ class AdminStudentController extends Controller
         $memberLost -> save();
         $bookLost -> save();
         $issued->delete();
-        return redirect('/StudentLost');
+        $data = user::all();
+        $lost = Library::where('Availability' , 'Lost') -> get();
+        return view('student.StudentLost' , compact('data' , 'lost'));
     }
 
     //function to recover lost book
-    public function StudenRecoverBook($id){
+    public function StudentRecoverBook($id){
         $recovered = Library::find($id);
         $recovered -> Availability = "Available";
         $recovered -> save();
         $data = User::all();
         $lost = Library::where('Availability' , 'Lost') -> get();
-        return view('page.LostBook' , compact('data' , 'lost'));
+        return view('student.StudentLost' , compact('data' , 'lost'));
+    }
+
+    //function to return the book issued
+    public function StudentIssueReturned($id){
+
+        $bookIssued = bookIssue::find($id);
+        $IssuedName = User::where('name' , $bookIssued -> name) -> first();
+        $IssuedBook = library::where('name' , $bookIssued -> bookName) -> first();
+        $issueList = new IssuedHistory();
+
+        $issueList -> NameIssued = $IssuedName -> name;
+        $issueList -> BookIssued = $IssuedBook -> name;
+        $issueList -> dateExpectedReturn = $bookIssued -> dateReturn;
+        $issueList -> dateIssued = $bookIssued -> dateIssued;
+        $today = new DateTime("now");
+        $issueList -> dateReturned = $today;
+        
+        $IssuedName -> havePending = "clear";
+        $IssuedBook -> Availability = "Available";
+
+        $issueList -> save();
+        $IssuedName -> save(); 
+        $IssuedBook -> save();
+        $bookIssued -> delete();
+        
+        $issued = BookIssue::all();
+        $data = User::all();
+        return view('student.StudentIssueList' , compact('issued'  , 'data'));
+    }
+
+    // function to go to issue history page at student admin
+    public function StudentIssuedHistory(){
+        $data = user::all();
+        $issueList = IssuedHistory::all();
+        return view('student.StudentIssuedHistory' , compact('data' , 'issueList'));
     }
 }

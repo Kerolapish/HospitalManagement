@@ -38,8 +38,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="\dashboard">Admin Student Panel</a></li>
-                                <li class="breadcrumb-item"><a href="\LostBook">Lost Book </a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Admin Student Panel</a></li>
+                                <li class="breadcrumb-item"><a href="/student/StudentLost">Lost Book </a></li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -75,7 +75,7 @@
                                             <td>{{ $book-> price }}</td>
 
                                             <td>
-                                                <form action="{{ url('recoverBook', $book->id) }}" method="POST"
+                                                <form action="{{ url('/student/StudentRecoverBook', $book->id) }}" method="POST"
                                                     accept-charset="UTF-8" style="display:inline">
                                                     @csrf
                                                     <input class="btn btn-info btn-xs" type="submit" value="Recover">
