@@ -4,7 +4,7 @@
     class Helper{
 
         public static function IDGenerator($model , $trow, $length, $prefix){
-            $data = $model::orderBy('id' , 'desc') -> first();
+            $data = $model::orderBy('id' , 'desc') ->skip(1)->take(1)->first()  ;
             if(!$data){
                 $og_length = $length;
                 $last_number = '';

@@ -58,9 +58,35 @@
                         <div class="card-body">
                             <div class="row invoice-info">
                                 <div class="col-sm-4 invoice-col">
-
+                                    <h6><strong> Author Name :</strong> &nbsp; {{ $author->authorName }}</h6>
+                                    <h6><strong> Author Email :</strong> &nbsp; {{ $author->email }}</h6>
+                                    <h6><strong> Author Phone Number :</strong> &nbsp; {{ $author->phoneNo }}</h6>
                                 </div>
                             </div>
+                            <br>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">No</th>
+                                        <th>Book Name</th>
+                                        <th>Year</th>
+                                        <th style="width: 100px">Price</th>
+                                        <th style="width: 200px">Added At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Update software</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-danger">55%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
