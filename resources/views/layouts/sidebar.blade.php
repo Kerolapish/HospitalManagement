@@ -114,6 +114,12 @@
                             <p>User Management</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/documentation" class="nav-link">
+                            <i class="far fas fa-file-invoice nav-icon"></i>
+                            <p>API Documentation</p>
+                        </a>
+                    </li> 
             </div>
         </nav>
         <!-- /.sidebar-menu -->

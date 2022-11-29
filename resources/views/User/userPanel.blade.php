@@ -128,7 +128,7 @@
                                 @foreach ($book as $Library)  
                                     <tr>
                                         <td>{{ $Library->name }}</td>
-                                        <td>{{ $Library->author }}</td>
+                                        <td>{{ $Library->author -> authorName }}</td>
                                         <td>{{ $Library->year }}</td>
                                         <td>RM {{ $Library->price }}</td>
                                         <td>{{ $Library -> Availability}}</td>

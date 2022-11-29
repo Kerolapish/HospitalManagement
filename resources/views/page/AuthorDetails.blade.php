@@ -69,22 +69,29 @@
                                     <tr>
                                         <th style="width: 10px">No</th>
                                         <th>Book Name</th>
+                                        <th style="width: 100px">Book ID</th>
                                         <th>Year</th>
                                         <th style="width: 100px">Price</th>
-                                        <th style="width: 200px">Added At</th>
+                                        <th style="width: 200px">ISBN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                    $no = 1;
+                                    @endphp
+                                    @foreach ($book as $book)
                                     <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">55%</span></td>
+                                        <td>{{$no}}</td>
+                                        <td>{{$book -> name}}</td>
+                                        <td>{{$book -> id}}</td>
+                                        <td>{{$book -> year}}</td>
+                                        <td>{{$book -> price}}</td>
+                                        <td>{{$book -> ISBN}}</td>
                                     </tr>
+                                    @php
+                                    $no++;
+                                    @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

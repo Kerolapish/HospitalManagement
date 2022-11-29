@@ -79,7 +79,7 @@
                                             @endif
                                             <td style="text-align: center">
                                                 @php
-                                                    $bookWritten = $book->where('author', $author->authorName);
+                                                    $bookWritten = $book -> where('author_id', $author -> id);
                                                     $bookWritten = $bookWritten->count();
                                                 @endphp
                                                 {{ $bookWritten }}

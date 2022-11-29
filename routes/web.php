@@ -33,6 +33,21 @@ Route::get('/welcome', function () {
 
 //////////////////////////////////
 //Super Admin Route
+//Documentation
+Route::get('/documentation/Setup' , [HomeController::class, 'documentationPage']) -> name('documentation');
+Route::get('/documentation/getAuthor' , [HomeController::class, 'getAuthor']) -> name('getAuthor');
+Route::get('/documentation/AuthorById' , [HomeController::class , 'AuthorById']) -> name('AuthorById');
+Route::get('/documentation/filterAuthor' , [HomeController::class , 'filterAuthor']) -> name('filterAuthor');
+Route::get('/documentation/addAuthor' , [HomeController::class, 'addAuthor']) -> name('addAuthor');
+Route::get('/documentation/updateAuthor', [HomeController::class , 'updateAuthor'])->name('updateAuthor');
+Route::get('/documentation/deleteAuthor' , [HomeController::class , 'deleteAuthorApi'])->name('deleteAuthorApi');
+Route::get('/documentation/getBook' , [HomeController::class , 'getBook']) -> name('getBook');
+Route::get('/documentation/getBookById' , [HomeController::class , 'getBookById']) -> name('getBookById');
+Route::get('/documentation/bookFilter' , [HomeController::class , 'bookFilter']) -> name('bookFilter');
+Route::get('/documentation/addBookApi' , [HomeController::class , 'addBookApi']) -> name('addBookApi');
+Route::get('/documentation/updateBookApi' , [HomeController::class , 'updateBookApi']) -> name('updateBookApi');
+Route::get('/documentation/deleteBookApi' , [HomeController::class , 'deleteBookApi']) -> name('deleteBookApi');
+
 //Profile Page
 Route::get('/profile/{id}' , [HomeController::class , "profilePage"]) -> name('Profile Page');
 Route::post('/updateInfo/{id}' , [HomeController::class, "updateInfo"]) -> name('update personal info');
@@ -119,8 +134,6 @@ Route::post('/Book/deleteAuthor/{id}' , [AuthorController::class , 'deleteAuthor
 Route::get('/Book/AuthorUpdateView/{id}',[AuthorController::class,'AuthorUpdateView']) -> name('AuthorUpdateView');
 Route::post('/Book/AuthorUpdate/{id}',[AuthorController::class,'AuthorUpdate']) -> name('AuthorUpdate');
 Route::get('/Book/BookProfile/{id}' , [AuthorController::class , "BookProfile"]) -> name('BookProfile');
-
-
 
 Route::middleware([
     'auth:sanctum',

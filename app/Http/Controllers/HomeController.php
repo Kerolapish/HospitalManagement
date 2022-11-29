@@ -150,7 +150,7 @@ class HomeController extends Controller
 
     //////////////////////////////////
 
-    //BOOK FUNCTIOM
+    //BOOK FUNCTION
     //go to register book page
     public function registerBook(){
         $data = User::all();
@@ -162,19 +162,18 @@ class HomeController extends Controller
     public function upload(Request $request){
         $request->validate([
             'name'=>'required',
-            'author'=>'required',
             'year'=>'required|max:4',
             'price'=>'required',
             'ISBN'=>'required|max:20'
         ],
         [
             'name.required'=>'Fill the Book Name',
-            'author.required'=>'Fill the Author',
             'year.required'=>'Fill the Publishing Year',
             'price.required'=>'Fill the Book Price Number',
             'ISBN.required'=>'Fill the Book ISBN'
         ]
         );
+        
         $library = new library();
         $data = user::all();
         if (Author::where('authorName' , $request->author ) -> get() -> count() == 0){
@@ -182,8 +181,10 @@ class HomeController extends Controller
             $Author -> authorName = $request -> author;
             $Author -> save();
         }
+
+        $AuthorId = Author::where('authorName' , $request->author ) -> first();
+        $library -> author_id = $AuthorId -> id;
         $library->name=$request->name;
-        $library->author=$request->author;
         $library->year=$request->year;
         $library->price=$request->price;
         $library->ISBN=$request->ISBN;
@@ -212,7 +213,6 @@ class HomeController extends Controller
         $data = User::all();
         $library = Library::find($id);
         $library->name= $request->name;
-        $library->author= $request->author;
         $library->year= $request->year;
         $library->price= $request->price;
         $library->save();
@@ -503,9 +503,64 @@ class HomeController extends Controller
     public function ViewBook($id){
 
         $author = author::find($id);
-        $book = Library::where('author' , $author -> name) -> get();
+        $book = Library::where('author_id' , $author -> id) -> get();
         $data = User::all();
         return view('Page.AuthorDetails' , compact('data' , 'book' , 'author'));
+    }
+
+    ////////////////////////////////
+    //Documentation function
+    ///////////////////////////////
+    public function documentationPage(){
+        return view('Page.documentation');
+    }
+
+    public function getAuthor(){
+        return view('Page.Documentation.getAuthorApi');
+    }
+
+    public function AuthorById(){
+        return view('Page.Documentation.getAuthorId');
+    }
+    
+    public function filterAuthor(){
+        return view('Page.Documentation.filterAuthor');
+    }
+
+    public function addAuthor(){
+        return view('Page.Documentation.addAuthorApi');
+    }
+
+    public function updateAuthor(){
+        return view('Page.Documentation.updateAuthorApi');
+    }
+
+    public function deleteAuthorApi(){
+        return view('Page.Documentation.deleteAuthorApi');
+    }
+
+    public function getBook(){
+        return view('Page.Documentation.getBookApi');
+    }
+
+    public function getBookById(){
+        return view('Page.Documentation.getBookById');
+    }
+
+    public function bookFilter(){
+        return view('Page.Documentation.bookFilter');
+    }
+
+    public function addBookApi(){
+        return view('Page.Documentation.addBookApi');
+    }
+
+    public function updateBookApi(){
+        return view('Page.Documentation.updateBookApi');
+    }
+
+    public function deleteBookApi(){
+        return view('Page.Documentation.deleteBookApi');
     }
 }
 

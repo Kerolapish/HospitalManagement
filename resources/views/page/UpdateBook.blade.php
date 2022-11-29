@@ -71,7 +71,7 @@
                                                   <div class="form-group">
                                                       <label for="exampleInputEmail1">AUTHOR</label>
                                                       <input type="text" class="form-control" name="author"
-                                                          placeholder="enter book author" value="{{ $book->author }}">
+                                                          placeholder="enter book author" value="{{ $book->author->authorName }}" disabled>
                                                   </div>
                                               </div>
                                           </div>

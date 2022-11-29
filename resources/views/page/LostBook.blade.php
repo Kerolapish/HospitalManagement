@@ -70,7 +70,7 @@
                                     @foreach ($lost as $book)
                                         <tr>
                                             <td>{{ $book-> name }}</td>
-                                            <td>{{ $book-> author }}</td>
+                                            <td>{{ $book-> author -> authorName}}</td>
                                             <td>{{ $book-> year }}</td>
                                             <td>{{ $book-> price }}</td>
 
